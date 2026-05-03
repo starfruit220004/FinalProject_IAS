@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './authentication/LoginPage';
 import RegisterPage from './authentication/RegisterPage';
 import ForgotPasswordPage from './authentication/ForgotPasswordPage';
+import ResetPasswordPage from './authentication/ResetPasswordPage';
 import DashboardPage from './pages/DashboardPage';
 import BlogPage from './pages/BlogPage';
 import FlashcardsPage from './pages/FlashcardsPage';
