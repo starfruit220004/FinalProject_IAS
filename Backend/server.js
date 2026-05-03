@@ -1,15 +1,15 @@
+const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 
-// Load .env.local if it exists, otherwise fallback to .env
+// Load environment variables immediately
 const envPath = fs.existsSync(path.join(__dirname, '.env.local')) 
   ? path.join(__dirname, '.env.local') 
   : path.join(__dirname, '.env');
 
 require('dotenv').config({ path: envPath });
 
-const express = require('express');
-const cors = require('cors');
 const { initDB } = require('./db');
 const authRoutes = require('./routes/authRoutes');
 const contentRoutes = require('./routes/content');
