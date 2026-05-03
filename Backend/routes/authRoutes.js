@@ -156,8 +156,8 @@ router.post('/login', [
 
     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {
-    console.error('Login error:', err.message);
-    res.status(500).json({ message: 'Server error. Please try again.' });
+    console.error('Login error:', err);
+    res.status(500).json({ message: `Server error: ${err.message}` });
   }
 });
 

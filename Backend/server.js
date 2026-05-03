@@ -34,8 +34,24 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'Server is running', env: process.env.NODE_ENV });
+app.get('/api/health', async (req, res) => {
+  try {
+    const { prisma } = require('./db');
+    const userCount = await prisma.user.count();
+    res.json({ 
+      status: 'Server is running', 
+      db: 'Connected', 
+      userTable: 'Available',
+      userCount,
+      env: process.env.NODE_ENV 
+    });
+  } catch (err) {
+    res.status(500).json({ 
+      status: 'Server is running', 
+      db: 'Error', 
+      message: err.message 
+    });
+  }
 });
 
 // Specific handler for /api 404s
