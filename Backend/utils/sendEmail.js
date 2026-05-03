@@ -14,7 +14,7 @@ const sendEmail = async ({ email, subject, html }) => {
     throw new Error(error.message);
   }
 
-  console.log('✅ Email sent via Resend');
+  console.log('✅ OTP sent via email.');
 };
 
 module.exports = sendEmail;
