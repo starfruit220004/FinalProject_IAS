@@ -1,10 +1,12 @@
 @import "tailwindcss";
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
 }
 
+/* ── Custom design tokens ── */
 :root {
   --navy: #1B3A6B;
   --blue: #2D6BE4;
@@ -22,12 +24,17 @@
 }
 
 .dark {
-  --surface: #020617; /* slate-950 */
-  --text-primary: #F8FAFC; /* slate-50 */
-  --text-secondary: #94A3B8; /* slate-400 */
-  --text-muted: #475569; /* slate-600 */
-  --border: #1E293B; /* slate-800 */
+  --surface: #020617;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #475569;
+  --border: #1E293B;
 }
+
+/* ── Base styles ── */
+/* NOTE: No * { margin: 0; padding: 0 } reset here.          */
+/* Tailwind v4 already ships its own preflight/reset.        */
+/* Adding a second reset on top conflicts and kills spacing. */
 
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
@@ -37,7 +44,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-a { text-decoration: none; color: inherit; }
+*, *::before, *::after {
+  box-sizing: border-box; /* safe to keep, Tailwind preflight already does this */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 button {
   cursor: pointer;
