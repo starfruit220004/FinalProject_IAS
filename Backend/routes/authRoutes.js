@@ -194,17 +194,17 @@ router.post('/forgot-password', [
       },
     });
 
-    // Send OTP email
+    // Send email with OTP Code
     await transporter.sendMail({
       from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Your Password Reset Code — SecureLearn',
+      subject: 'Reset Your Password — SecureLearn',
       html: `
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Reset your password</h2>
           <p>Hi <strong>${user.username}</strong>,</p>
           <p>Use the code below to reset your password. It expires in <strong>15 minutes</strong>.</p>
-          <div style="margin: 24px 0; text-align: center;">
+          <div style="text-align: center; margin: 24px 0;">
             <span style="display: inline-block; padding: 16px 32px; background: linear-gradient(to right, #06b6d4, #2563eb); color: #fff; font-size: 32px; font-weight: 900; border-radius: 12px; letter-spacing: 8px;">
               ${otpPlain}
             </span>

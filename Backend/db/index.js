@@ -100,4 +100,4 @@ const initDB = async () => {
   }
 };
 
-module.exports = { prisma, initDB };
+module.exports = { prisma, initDB, pool };

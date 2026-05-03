@@ -14,8 +14,7 @@ model User {
   created_at    DateTime @default(now())
   otp              String?  
   otpExpiry        DateTime? 
-
-
+  
   @@map("users")
 }
 

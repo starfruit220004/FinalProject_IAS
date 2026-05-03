@@ -54,6 +54,20 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+app.get('/api/debug-db', async (req, res) => {
+  try {
+    const { pool } = require('./db');
+    const result = await pool.query(`
+      SELECT column_name, data_type 
+      FROM information_schema.columns 
+      WHERE table_name = 'users'
+    `);
+    res.json({ table: 'users', columns: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Specific handler for /api 404s
 app.use('/api', (req, res) => {
   res.status(404).json({ message: `API route not found: ${req.method} ${req.originalUrl}` });
