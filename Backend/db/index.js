@@ -11,7 +11,13 @@ const envPath = fs.existsSync(path.join(__dirname, '..', '.env.local'))
 
 require('dotenv').config({ path: envPath });
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({ 
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL && (process.env.DATABASE_URL.includes('render.com') || process.env.DATABASE_URL.includes('supabase.co'))
+    ? { rejectUnauthorized: false } 
+    : false
+});
+
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
@@ -88,13 +94,6 @@ const initDB = async () => {
   } catch (err) {
     console.error('Database initialization error:', err.message);
     throw err;
-  }
-};
-
-module.exports = { prisma, initDB };
-og('Prisma database connection established');
-  } catch (err) {
-    console.error('Database initialization error:', err.message);
   }
 };
 
