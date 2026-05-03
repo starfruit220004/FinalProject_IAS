@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique @db.VarChar(50)
+  email         String   @unique @db.VarChar(100)
+  password_hash String   @db.VarChar(255)
+  created_at    DateTime @default(now())
+  resetToken       String?   @db.VarChar(255)
+  resetTokenExpiry DateTime?
+
+
+  @@map("users")
+}
+
+model Blog {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(200)
+  content    String
+  category   String?  @db.VarChar(100)
+  created_at DateTime @default(now())
+
+  @@map("blogs")
+}
+
+model Flashcard {
+  id         Int      @id @default(autoincrement())
+  question   String
+  answer     String
+  category   String?  @db.VarChar(100)
+  created_at DateTime @default(now())
+
+  @@map("flashcards")
+}
+
+model Quiz {
+  id             Int      @id @default(autoincrement())
+  question       String
+  option_a       String
+  option_b       String
+  option_c       String
+  option_d       String
+  correct_answer String   @db.Char(1)
+  explanation    String?
+  category       String?  @db.VarChar(100)
+  created_at     DateTime @default(now())
+
+  @@map("quizzes")
+}

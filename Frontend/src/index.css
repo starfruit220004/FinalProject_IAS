@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --navy: #1B3A6B;
+  --blue: #2D6BE4;
+  --teal: #4FC3C3;
+  --mist: #E8F4FE;
+  --amber: #FF8C42;
+  --white: #ffffff;
+  --surface: #F4F8FD;
+  --text-primary: #1B3A6B;
+  --text-secondary: #4A6FA5;
+  --text-muted: #8BA5C8;
+  --border: #C8DDEF;
+  --danger: #E85D3A;
+  --success: #2E8B57;
+}
+
+.dark {
+  --surface: #020617; /* slate-950 */
+  --text-primary: #F8FAFC; /* slate-50 */
+  --text-secondary: #94A3B8; /* slate-400 */
+  --text-muted: #475569; /* slate-600 */
+  --border: #1E293B; /* slate-800 */
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+}
