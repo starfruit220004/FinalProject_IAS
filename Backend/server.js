@@ -48,10 +48,25 @@ app.use((req, res) => {
 });
 
 const start = async () => {
-  await initDB();
-  app.listen(PORT, () => {
-    console.log(`Server running on https://finalproject-ias.onrender.com`);
-  });
+  // Validate critical environment variables
+  const requiredEnv = ['DATABASE_URL', 'JWT_SECRET'];
+  const missingEnv = requiredEnv.filter(env => !process.env[env]);
+  
+  if (missingEnv.length > 0) {
+    console.error(`FATAL: Missing environment variables: ${missingEnv.join(', ')}`);
+    process.exit(1);
+  }
+
+  try {
+    await initDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err.message);
+    process.exit(1);
+  }
 };
 
 start();

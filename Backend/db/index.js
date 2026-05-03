@@ -87,6 +87,14 @@ const initDB = async () => {
     console.log('Prisma database connection established');
   } catch (err) {
     console.error('Database initialization error:', err.message);
+    throw err;
+  }
+};
+
+module.exports = { prisma, initDB };
+og('Prisma database connection established');
+  } catch (err) {
+    console.error('Database initialization error:', err.message);
   }
 };
 
