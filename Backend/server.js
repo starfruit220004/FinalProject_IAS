@@ -27,11 +27,20 @@ app.use(cors({
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json({ message: 'SecureLearn API is running.', docs: 'https://final-project-ias.vercel.app' });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running', env: process.env.NODE_ENV });
+});
+
+// Specific handler for /api 404s
+app.use('/api', (req, res) => {
+  res.status(404).json({ message: `API route not found: ${req.method} ${req.originalUrl}` });
 });
 
 app.use((req, res) => {
