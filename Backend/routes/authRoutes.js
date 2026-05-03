@@ -2,26 +2,11 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
 const { prisma } = require('../db');
+const sendEmail = require('../utils/sendEmail');
 
 const router = express.Router();
-
-// Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
 
 // POST /api/auth/register
 router.post('/register', [
@@ -168,7 +153,6 @@ router.post('/login', [
 });
 
 // POST /api/auth/forgot-password
-// Generates a 6-digit OTP, stores it hashed, and emails it to the user
 router.post('/forgot-password', [
   body('email').trim().isEmail().withMessage('Please enter a valid email'),
 ], async (req, res) => {
@@ -182,7 +166,6 @@ router.post('/forgot-password', [
   try {
     const user = await prisma.user.findUnique({ where: { email } });
 
-    // Always respond the same way to prevent email enumeration
     if (!user) {
       return res.json({ message: 'If that email exists, a reset code was sent.' });
     }
@@ -200,16 +183,9 @@ router.post('/forgot-password', [
       },
     });
 
-    // Send email with OTP Code
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.error('Email configuration missing (EMAIL_USER or EMAIL_PASS)');
-      return res.status(500).json({ message: 'Email service not configured.' });
-    }
-
     try {
-      await transporter.sendMail({
-        from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
-        to: email,
+      await sendEmail({
+        email,
         subject: 'Reset Your Password — SecureLearn',
         html: `
           <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
@@ -226,7 +202,7 @@ router.post('/forgot-password', [
         `,
       });
     } catch (mailErr) {
-      console.error('Nodemailer error:', mailErr.message);
+      console.error('Email error:', mailErr.message);
       return res.status(500).json({ message: `Failed to send email: ${mailErr.message}` });
     }
 
@@ -238,7 +214,6 @@ router.post('/forgot-password', [
 });
 
 // POST /api/auth/reset-password
-// Verifies the OTP and sets the new password
 router.post('/reset-password', [
   body('email').trim().isEmail().withMessage('Please enter a valid email'),
   body('otp').trim().notEmpty().withMessage('OTP code is required'),
