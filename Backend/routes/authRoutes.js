@@ -162,6 +162,7 @@ router.post('/login', [
 });
 
 // POST /api/auth/forgot-password
+// Generates a 6-digit OTP, stores it hashed, and emails it to the user
 router.post('/forgot-password', [
   body('email').trim().isEmail().withMessage('Please enter a valid email'),
 ], async (req, res) => {
@@ -177,41 +178,43 @@ router.post('/forgot-password', [
 
     // Always respond the same way to prevent email enumeration
     if (!user) {
-      return res.json({ message: 'If that email exists, a reset link was sent.' });
+      return res.json({ message: 'If that email exists, a reset code was sent.' });
     }
 
-    // Generate token
-    const token = crypto.randomBytes(32).toString('hex');
-    const expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
+    // Generate 6-digit OTP
+    const otpPlain = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpHashed = await bcrypt.hash(otpPlain, 10);
+    const otpExpiry = new Date(Date.now() + 1000 * 60 * 15); // 15 minutes
 
     await prisma.user.update({
       where: { email },
       data: {
-        resetToken: token,
-        resetTokenExpiry: expires,
+        otp: otpHashed,
+        otpExpiry,
       },
     });
 
-    // Send email
+    // Send OTP email
     await transporter.sendMail({
       from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Reset Your Password — SecureLearn',
+      subject: 'Your Password Reset Code — SecureLearn',
       html: `
         <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Reset your password</h2>
           <p>Hi <strong>${user.username}</strong>,</p>
-          <p>Click the button below to reset your password. This link expires in <strong>1 hour</strong>.</p>
-          <a href="${process.env.CLIENT_URL}/reset-password?token=${token}"
-            style="display:inline-block;margin:16px 0;padding:12px 24px;background:linear-gradient(to right,#06b6d4,#2563eb);color:#fff;font-weight:bold;border-radius:10px;text-decoration:none;">
-            Reset Password
-          </a>
+          <p>Use the code below to reset your password. It expires in <strong>15 minutes</strong>.</p>
+          <div style="margin: 24px 0; text-align: center;">
+            <span style="display: inline-block; padding: 16px 32px; background: linear-gradient(to right, #06b6d4, #2563eb); color: #fff; font-size: 32px; font-weight: 900; border-radius: 12px; letter-spacing: 8px;">
+              ${otpPlain}
+            </span>
+          </div>
           <p style="color:#64748b;font-size:13px;">If you didn't request this, you can safely ignore this email.</p>
         </div>
       `,
     });
 
-    res.json({ message: 'If that email exists, a reset link was sent.' });
+    res.json({ message: 'If that email exists, a reset code was sent.' });
   } catch (err) {
     console.error('Forgot password error:', err.message);
     res.status(500).json({ message: 'Server error. Please try again.' });
@@ -219,8 +222,10 @@ router.post('/forgot-password', [
 });
 
 // POST /api/auth/reset-password
+// Verifies the OTP and sets the new password
 router.post('/reset-password', [
-  body('token').notEmpty().withMessage('Token is required'),
+  body('email').trim().isEmail().withMessage('Please enter a valid email'),
+  body('otp').trim().notEmpty().withMessage('OTP code is required'),
   body('password')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters')
@@ -232,18 +237,22 @@ router.post('/reset-password', [
     return res.status(400).json({ message: errors.array()[0].msg });
   }
 
-  const { token, password } = req.body;
+  const { email, otp, password } = req.body;
 
   try {
-    const user = await prisma.user.findFirst({
-      where: {
-        resetToken: token,
-        resetTokenExpiry: { gt: new Date() }
-      }
-    });
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid or expired reset token.' });
+    if (!user || !user.otp || !user.otpExpiry) {
+      return res.status(400).json({ message: 'Invalid or expired reset code.' });
+    }
+
+    if (new Date() > user.otpExpiry) {
+      return res.status(400).json({ message: 'Reset code has expired. Please request a new one.' });
+    }
+
+    const isValidOtp = await bcrypt.compare(otp, user.otp);
+    if (!isValidOtp) {
+      return res.status(400).json({ message: 'Incorrect reset code.' });
     }
 
     const saltRounds = 10;
@@ -253,9 +262,9 @@ router.post('/reset-password', [
       where: { id: user.id },
       data: {
         password_hash,
-        resetToken: null,
-        resetTokenExpiry: null,
-      }
+        otp: null,
+        otpExpiry: null,
+      },
     });
 
     res.json({ message: 'Password reset successfully.' });

@@ -12,8 +12,8 @@ model User {
   email         String   @unique @db.VarChar(100)
   password_hash String   @db.VarChar(255)
   created_at    DateTime @default(now())
-  resetToken       String?   @db.VarChar(255)
-  resetTokenExpiry DateTime?
+  otp              String?  
+  otpExpiry        DateTime? 
 
 
   @@map("users")
