@@ -20,9 +20,12 @@ router.get('/blogs', async (req, res) => {
 });
 
 router.get('/blogs/:id', async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ message: 'Invalid blog ID.' });
+
   try {
     const blog = await prisma.blog.findUnique({
-      where: { id: parseInt(req.params.id) }
+      where: { id }
     });
     if (!blog) return res.status(404).json({ message: 'Blog not found.' });
     res.json(blog);

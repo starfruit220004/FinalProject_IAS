@@ -18,7 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'https://final-project-ias.vercel.app',
+  ],
   credentials: true,
 }));
 
@@ -38,7 +41,7 @@ app.use((req, res) => {
 const start = async () => {
   await initDB();
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on https://finalproject-ias.onrender.com`);
   });
 };
 
