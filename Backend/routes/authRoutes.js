@@ -195,29 +195,39 @@ router.post('/forgot-password', [
     });
 
     // Send email with OTP Code
-    await transporter.sendMail({
-      from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: 'Reset Your Password — SecureLearn',
-      html: `
-        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
-          <h2 style="color: #0f172a;">Reset your password</h2>
-          <p>Hi <strong>${user.username}</strong>,</p>
-          <p>Use the code below to reset your password. It expires in <strong>15 minutes</strong>.</p>
-          <div style="text-align: center; margin: 24px 0;">
-            <span style="display: inline-block; padding: 16px 32px; background: linear-gradient(to right, #06b6d4, #2563eb); color: #fff; font-size: 32px; font-weight: 900; border-radius: 12px; letter-spacing: 8px;">
-              ${otpPlain}
-            </span>
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Email configuration missing (EMAIL_USER or EMAIL_PASS)');
+      return res.status(500).json({ message: 'Email service not configured.' });
+    }
+
+    try {
+      await transporter.sendMail({
+        from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'Reset Your Password — SecureLearn',
+        html: `
+          <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+            <h2 style="color: #0f172a;">Reset your password</h2>
+            <p>Hi <strong>${user.username}</strong>,</p>
+            <p>Use the code below to reset your password. It expires in <strong>15 minutes</strong>.</p>
+            <div style="text-align: center; margin: 24px 0;">
+              <span style="display: inline-block; padding: 16px 32px; background: linear-gradient(to right, #06b6d4, #2563eb); color: #fff; font-size: 32px; font-weight: 900; border-radius: 12px; letter-spacing: 8px;">
+                ${otpPlain}
+              </span>
+            </div>
+            <p style="color:#64748b;font-size:13px;">If you didn't request this, you can safely ignore this email.</p>
           </div>
-          <p style="color:#64748b;font-size:13px;">If you didn't request this, you can safely ignore this email.</p>
-        </div>
-      `,
-    });
+        `,
+      });
+    } catch (mailErr) {
+      console.error('Nodemailer error:', mailErr.message);
+      return res.status(500).json({ message: `Failed to send email: ${mailErr.message}` });
+    }
 
     res.json({ message: 'If that email exists, a reset code was sent.' });
   } catch (err) {
     console.error('Forgot password error:', err.message);
-    res.status(500).json({ message: 'Server error. Please try again.' });
+    res.status(500).json({ message: `Server error: ${err.message}` });
   }
 });
 
