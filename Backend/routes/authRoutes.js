@@ -136,13 +136,15 @@ router.post('/login', [
     });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password.' });
+      console.log(`Login failed: User "${username}" not found.`);
+      return res.status(401).json({ message: `User not found: ${username}` });
     }
 
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password.' });
+      console.log(`Login failed: Incorrect password for user "${user.username}".`);
+      return res.status(401).json({ message: 'Incorrect password.' });
     }
 
     const token = jwt.sign(
