@@ -1,28 +1,30 @@
-const nodemailer = require('nodemailer');
-const dns = require('dns');
-
-dns.setDefaultResultOrder('ipv4first');
-
+// utils/sendEmail.js
 const sendEmail = async ({ email, subject, html }) => {
-  const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.BREVO_USER,
-      pass: process.env.BREVO_PASS,
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'api-key': process.env.BREVO_API_KEY,
     },
-    family: 4,
+    body: JSON.stringify({
+      sender: {
+        name: 'SecureLearn',
+        email: process.env.EMAIL_USER,
+      },
+      to: [{ email }],
+      subject,
+      htmlContent: html,
+    }),
   });
 
-  const info = await transporter.sendMail({
-    from: `"SecureLearn" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject,
-    html,
-  });
+  if (!response.ok) {
+    const error = await response.json();
+    console.error('Brevo API error:', error);
+    throw new Error(error.message || 'Failed to send email');
+  }
 
-  console.log('✅ OTP email sent:', info.messageId);
+  console.log('✅ OTP email sent via Brevo API');
 };
 
 module.exports = sendEmail;
