@@ -123,6 +123,9 @@ export default function RegisterPage() {
                 required
                 className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
               />
+              <p className="mt-1.5 text-[11px] text-slate-500 dark:text-slate-500 flex items-center gap-1 px-1">
+                <span>💡</span> Use a real email to recover your account if you forget your password.
+              </p>
             </div>
 
             <div>
