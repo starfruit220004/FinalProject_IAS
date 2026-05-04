@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
 const { body, validationResult } = require('express-validator');
 const { prisma } = require('../db');
 const sendEmail = require('../utils/sendEmail');
@@ -71,6 +70,51 @@ router.post('/register', [
   }
 });
 
+// POST /api/auth/login
+router.post('/login', [
+  body('username').trim().notEmpty().withMessage('Username is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg });
+  }
+
+  const { username, password } = req.body;
+
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username: { equals: username, mode: 'insensitive' } },
+          { email: { equals: username, mode: 'insensitive' } }
+        ]
+      }
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password.' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid username or password.' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ message: 'Server error. Please try again.' });
+  }
+});
+
 // POST /api/auth/change-password
 const authMiddleware = require('../middleware/auth');
 router.post('/change-password', [
@@ -109,54 +153,6 @@ router.post('/change-password', [
   } catch (err) {
     console.error('Change password error:', err.message);
     res.status(500).json({ message: 'Server error. Please try again.' });
-  }
-});
-
-// POST /api/auth/login
-router.post('/login', [
-  body('username').trim().notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required'),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array()[0].msg });
-  }
-
-  const { username, password } = req.body;
-
-  try {
-    // Allow login with either username OR email, case-insensitive
-    const user = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { username: { equals: username, mode: 'insensitive' } },
-          { email: { equals: username, mode: 'insensitive' } }
-        ]
-      }
-    });
-
-    if (!user) {
-      console.log(`Login failed: User "${username}" not found.`);
-      return res.status(401).json({ message: `User not found: ${username}` });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password_hash);
-
-    if (!isMatch) {
-      console.log(`Login failed: Incorrect password for user "${user.username}".`);
-      return res.status(401).json({ message: 'Incorrect password.' });
-    }
-
-    const token = jwt.sign(
-      { id: user.id, username: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-
-    res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
-  } catch (err) {
-    console.error('Login error:', err);
-    res.status(500).json({ message: `Server error: ${err.message}` });
   }
 });
 
@@ -229,7 +225,7 @@ router.post('/reset-password', [
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])/)
-    .withMessage('Password must include at least one uppercase letter, one lowercase letter, one number, and one symbol'),
+    .withMessage('Password must include uppercase, lowercase, number, and symbol'),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -245,11 +241,15 @@ router.post('/reset-password', [
       return res.status(400).json({ message: 'Invalid or expired reset code.' });
     }
 
-    if (new Date() > user.otpExpiry) {
+    if (new Date() > new Date(user.otpExpiry)) {
+      await prisma.user.update({
+        where: { email },
+        data: { otp: null, otpExpiry: null },
+      });
       return res.status(400).json({ message: 'Reset code has expired. Please request a new one.' });
     }
 
-    const isValidOtp = await bcrypt.compare(otp, user.otp);
+    const isValidOtp = await bcrypt.compare(otp.trim(), user.otp);
     if (!isValidOtp) {
       return res.status(400).json({ message: 'Incorrect reset code.' });
     }
@@ -266,7 +266,9 @@ router.post('/reset-password', [
       },
     });
 
+    console.log(`✅ Password reset for user: ${user.username}`);
     res.json({ message: 'Password reset successfully.' });
+
   } catch (err) {
     console.error('Reset password error:', err.message);
     res.status(500).json({ message: 'Server error. Please try again.' });
