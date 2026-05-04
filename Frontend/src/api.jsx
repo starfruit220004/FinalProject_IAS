@@ -37,7 +37,11 @@ export const api = async (endpoint, options = {}) => {
     }
 
     if (!res.ok) {
-      if (res.status === 401 || res.status === 403) {
+      // Don't redirect if we're already on login page OR it's a login attempt
+      const isLoginRequest = endpoint.includes('/auth/login');
+      const isOnLoginPage = window.location.pathname === '/login';
+
+      if ((res.status === 401 || res.status === 403) && !isLoginRequest && !isOnLoginPage) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = '/login';

@@ -37,8 +37,8 @@ router.post('/register', [
     const existing = await prisma.user.findFirst({
       where: {
         OR: [
-          { username },
-          { email }
+          { username: { equals: username, mode: 'insensitive' } },
+          { email: { equals: email, mode: 'insensitive' } }
         ]
       }
     });
@@ -125,8 +125,14 @@ router.post('/login', [
   const { username, password } = req.body;
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { username }
+    // Allow login with either username OR email, case-insensitive
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username: { equals: username, mode: 'insensitive' } },
+          { email: { equals: username, mode: 'insensitive' } }
+        ]
+      }
     });
 
     if (!user) {
