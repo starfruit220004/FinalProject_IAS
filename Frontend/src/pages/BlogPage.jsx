@@ -123,13 +123,13 @@ function BlogCard({ blog, onSelect }) {
     <div
       onClick={handleClick}
       className="cursor-pointer"
-      style={{ perspective: '1000px', height: '110px' }}
+      style={{ perspective: '1000px', minHeight: '120px' }}
     >
       <div
+        className="h-full"
         style={{
           position: 'relative',
           width: '100%',
-          height: '100%',
           transformStyle: 'preserve-3d',
           transition: 'transform 0.38s cubic-bezier(0.4, 0, 0.2, 1)',
           transform: flipped ? 'rotateX(180deg)' : 'rotateX(0deg)',
@@ -137,24 +137,24 @@ function BlogCard({ blog, onSelect }) {
       >
         {/* Front face */}
         <div
-          className="absolute inset-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-blue-900/50 rounded-2xl px-6 py-5 flex items-center gap-5 hover:border-blue-400/40 dark:hover:border-blue-500/50 hover:shadow-lg shadow-sm transition-all duration-200 group"
+          className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-blue-900/50 rounded-2xl px-5 sm:px-6 py-5 flex items-center gap-4 sm:gap-5 hover:border-blue-400/40 dark:hover:border-blue-500/50 hover:shadow-lg shadow-sm transition-all duration-200 group h-full"
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
         >
           {/* Text */}
           <div className="flex-1 min-w-0">
-            <span className={`inline-flex items-center text-xs font-bold px-3 py-1 rounded-full mb-2 ${getCategoryStyle(blog.category)}`}>
+            <span className={`inline-flex items-center text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 rounded-full mb-2 ${getCategoryStyle(blog.category)}`}>
               {blog.category}
             </span>
-            <h2 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors truncate">
+            <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors line-clamp-1">
               {blog.title}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 truncate mt-0.5">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
               {blog.content.slice(0, 100)}...
             </p>
           </div>
 
           {/* Icon */}
-          <div className="shrink-0 text-4xl select-none">
+          <div className="shrink-0 text-3xl sm:text-4xl select-none">
             {getCategoryIcon(blog.category)}
           </div>
         </div>

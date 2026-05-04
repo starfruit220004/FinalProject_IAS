@@ -74,9 +74,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Center: nav links */}
+          {/* Center: nav links (Hidden on mobile, shown on md+) */}
           {user && (
-            <div className="flex items-center gap-0.5 flex-1 justify-center">
+            <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
               {navLinks.map((link) => (
                 <button
                   key={link.path}
@@ -88,7 +88,7 @@ export default function Navbar() {
                   }`}
                 >
                   <span className="text-base">{link.icon}</span>
-                  <span className="hidden sm:block">{link.label}</span>
+                  <span>{link.label}</span>
                   {isActive(link.path) && (
                     <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-blue-500 dark:bg-blue-400" />
                   )}
@@ -97,11 +97,11 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Right: Logout */}
+          {/* Right: Logout (Hidden on mobile) */}
           {user && (
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-red-500 hover:bg-red-600 rounded-xl transition-all duration-150 shadow-md shadow-red-500/30 shrink-0 ml-auto"
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-red-500 hover:bg-red-600 rounded-xl transition-all duration-150 shadow-md shadow-red-500/30 shrink-0 ml-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -111,35 +111,65 @@ export default function Navbar() {
             </button>
           )}
 
-          {/* Mobile hamburger (no user) */}
-          {!user && (
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 ml-auto transition-colors"
-              aria-label="Toggle menu"
-            >
-              <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block h-0.5 w-5 bg-current rounded-full transition-all ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-            </button>
-          )}
+          {/* Mobile hamburger (Visible on mobile) */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 ml-auto transition-colors"
+            aria-label="Toggle menu"
+          >
+            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
         </div>
 
         {/* Mobile dropdown */}
-        {!user && menuOpen && (
-          <div className="absolute top-16 left-4 right-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-3 space-y-1">
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full text-left px-4 py-2.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl font-medium"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full text-left px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
-            >
-              Get Started →
-            </button>
+        {menuOpen && (
+          <div className="absolute top-16 left-4 right-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-3 space-y-1 md:hidden">
+            {!user ? (
+              <>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="w-full text-left px-4 py-2.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl font-medium"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="w-full text-left px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
+                >
+                  Get Started →
+                </button>
+              </>
+            ) : (
+              <>
+                {navLinks.map((link) => (
+                  <button
+                    key={link.path}
+                    onClick={() => navigate(link.path)}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      isActive(link.path)
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10"
+                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5"
+                    }`}
+                  >
+                    <span className="text-base">{link.icon}</span>
+                    {link.label}
+                  </button>
+                ))}
+                <div className="h-px bg-slate-200 dark:bg-slate-700 my-2" />
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>

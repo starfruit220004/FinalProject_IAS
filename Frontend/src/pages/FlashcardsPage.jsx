@@ -92,14 +92,14 @@ export default function FlashcardsPage() {
       {card && (
         <div
           className="cursor-pointer mb-6"
-          style={{ perspective: '1200px', height: '300px' }}
+          style={{ perspective: '1200px', minHeight: '280px' }}
           onClick={() => setFlipped((f) => !f)}
         >
           <div
+            className="h-full min-h-[280px]"
             style={{
               position: 'relative',
               width: '100%',
-              height: '100%',
               transformStyle: 'preserve-3d',
               transition: 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)',
               transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -107,51 +107,51 @@ export default function FlashcardsPage() {
           >
             {/* Front */}
             <div
-              className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/5 flex flex-col items-center justify-center p-8 text-center shadow-sm dark:shadow-none"
+              className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/5 flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-sm dark:shadow-none min-h-[280px]"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
-              <div className="text-xs font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 mb-4">Question</div>
-              <div className="text-xl font-bold text-slate-900 dark:text-white leading-relaxed mb-6">{card.question}</div>
-              <div className="text-xs text-slate-500 dark:text-slate-600 flex items-center gap-1.5">
+              <div className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 mb-4">Question</div>
+              <div className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed mb-6">{card.question}</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-600 flex items-center gap-1.5">
                 <span>👆</span> Click to reveal answer
               </div>
             </div>
 
             {/* Back */}
             <div
-              className={`absolute inset-0 ${backBg} border ${theme === 'dark' ? 'border-white' : 'border-slate-800'} rounded-2xl flex flex-col items-center justify-center p-8 text-center shadow-lg dark:shadow-none`}
+              className={`absolute inset-0 ${backBg} border ${theme === 'dark' ? 'border-white' : 'border-slate-800'} rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-lg dark:shadow-none min-h-[280px]`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',
               }}
             >
-              <div className={`text-xs font-bold tracking-widest uppercase ${backLabel} mb-4`}>Answer</div>
-              <div className={`text-base ${backText} leading-relaxed font-medium`}>{card.answer}</div>
+              <div className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase ${backLabel} mb-4`}>Answer</div>
+              <div className={`text-sm sm:text-base ${backText} leading-relaxed font-medium`}>{card.answer}</div>
             </div>
           </div>
         </div>
       )}
 
       {/* Controls */}
-      <div className="flex gap-3 justify-center mb-6">
+      <div className="flex flex-wrap gap-3 justify-center mb-6">
         <button
           onClick={prev}
           disabled={index === 0}
-          className="px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-semibold text-sm rounded-xl disabled:opacity-40 hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-sm"
+          className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-semibold text-sm rounded-xl disabled:opacity-40 hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-sm"
         >
-          ← Previous
+          ← Prev
         </button>
         <button
           onClick={() => setFlipped((f) => !f)}
-          className="px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all"
+          className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all"
         >
           Flip
         </button>
         <button
           onClick={next}
           disabled={index === filtered.length - 1}
-          className={`px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
+          className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
             done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
           }`}
         >

@@ -179,16 +179,16 @@ export default function QuizPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-2 pb-10">
       {/* Header — no live score */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="text-center sm:text-left">
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-1">Security Quiz</h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">Answer all questions to see your results.</p>
+      <div className="flex items-center justify-between mb-6 gap-4">
+        <div className="text-left">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-1">Security Quiz</h1>
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">Answer all questions to see your results.</p>
         </div>
-        <div className="bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 rounded-xl px-4 py-2 text-center">
-          <div className="text-xl font-black text-orange-600 dark:text-orange-400">
-            {index + 1}<span className="text-orange-300 dark:text-orange-600 text-sm font-normal">/{questions.length}</span>
+        <div className="bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-center shrink-0">
+          <div className="text-lg sm:text-xl font-black text-orange-600 dark:text-orange-400">
+            {index + 1}<span className="text-orange-300 dark:text-orange-600 text-xs sm:text-sm font-normal">/{questions.length}</span>
           </div>
-          <div className="text-xs text-orange-400 dark:text-orange-500 font-medium uppercase tracking-widest">Question</div>
+          <div className="text-[10px] text-orange-400 dark:text-orange-500 font-medium uppercase tracking-widest">Question</div>
         </div>
       </div>
 
@@ -201,27 +201,26 @@ export default function QuizPage() {
       </div>
 
       {/* Question card */}
-      <div className={`${cardBg} border ${cardBorder} rounded-2xl p-6 mb-4 shadow-sm`}>
-        <div className={`text-xs font-bold ${theme === 'dark' ? 'text-orange-600' : 'text-orange-500'} uppercase tracking-widest mb-3`}>
+      <div className={`${cardBg} border ${cardBorder} rounded-2xl p-5 sm:p-6 mb-4 shadow-sm`}>
+        <div className={`text-[10px] sm:text-xs font-bold ${theme === 'dark' ? 'text-orange-600' : 'text-orange-500'} uppercase tracking-widest mb-3`}>
           Question {index + 1} · {q.category}
         </div>
-        <p className={`text-lg font-bold ${cardText} leading-snug mb-5`}>{q.question}</p>
+        <p className={`text-base sm:text-lg font-bold ${cardText} leading-snug mb-5`}>{q.question}</p>
 
-        <div className="space-y-2.5">
+        <div className="space-y-2">
           {opts.map((o) => (
             <button
               key={o.key}
               onClick={() => choose(o.key)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-sm text-left font-medium transition-all duration-150 ${getStyle(o.key)}`}
+              className={`w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border text-sm text-left font-medium transition-all duration-150 ${getStyle(o.key)}`}
             >
-              <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 transition-colors ${getBadgeStyle(o.key)}`}>
+              <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-[10px] sm:text-xs font-bold shrink-0 transition-colors ${getBadgeStyle(o.key)}`}>
                 {o.key}
               </span>
-              <span>{o.text}</span>
+              <span className="flex-1">{o.text}</span>
             </button>
           ))}
         </div>
-        {/* No explanation shown here — all revealed at the end */}
       </div>
 
       {/* Next button appears after selecting — no right/wrong hint */}

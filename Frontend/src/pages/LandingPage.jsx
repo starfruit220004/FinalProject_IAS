@@ -137,11 +137,11 @@ export default function LandingPage() {
 
           <h1
             data-animate
-            className="text-5xl sm:text-6xl md:text-7xl font-black leading-[1.06] tracking-tight text-slate-900 dark:text-white mb-7"
+            className="text-4xl sm:text-6xl md:text-7xl font-black leading-[1.06] tracking-tight text-slate-900 dark:text-white mb-7"
           >
             Learn Web Security
             <br />
-            <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent min-h-[1.2em] inline-block">
               {typedText}
               <span className="animate-pulse text-cyan-600 dark:text-cyan-400">|</span>
             </span>
