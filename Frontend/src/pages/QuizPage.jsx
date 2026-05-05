@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { useTheme } from '../context/ThemeContext';
+import { Loader2, Trophy, ThumbsUp, BookOpen, XCircle, CheckCircle2, ArrowRight, RotateCcw } from 'lucide-react';
 
 export default function QuizPage() {
   const [questions, setQuestions] = useState([]);
@@ -55,10 +56,7 @@ export default function QuizPage() {
   if (loading) return (
     <div className="flex items-center justify-center py-32">
       <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-        <svg className="animate-spin h-5 w-5 text-orange-600 dark:text-orange-500" viewBox="0 0 24 24" fill="none">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-        </svg>
+        <Loader2 className="animate-spin h-5 w-5 text-orange-600 dark:text-orange-500" />
         Loading quiz...
       </div>
     </div>
@@ -73,7 +71,7 @@ export default function QuizPage() {
   // ── End screen ──────────────────────────────────────────────────────────────
   if (finished) {
     const wrongAnswers = answers.filter((a) => !a.result.isCorrect);
-    const emoji = score === questions.length ? '🏆' : score >= questions.length * 0.6 ? '👍' : '📚';
+    const ResultIcon = score === questions.length ? Trophy : score >= questions.length * 0.6 ? ThumbsUp : BookOpen;
 
     const optLabel = (q, key) => {
       const map = { A: q.option_a, B: q.option_b, C: q.option_c, D: q.option_d };
@@ -84,7 +82,9 @@ export default function QuizPage() {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
         {/* Score card */}
         <div className={`${cardBg} border ${cardBorder} rounded-2xl p-10 text-center mb-8 shadow-sm dark:shadow-none`}>
-          <div className="text-5xl mb-4">{emoji}</div>
+          <div className="flex justify-center mb-4 text-orange-500">
+            <ResultIcon className="w-16 h-16" />
+          </div>
           <div className={`text-xs font-bold tracking-widest uppercase ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'} mb-3`}>Quiz Complete</div>
           <div className={`text-6xl font-black ${cardText} mb-6`}>
             {score}
@@ -92,9 +92,9 @@ export default function QuizPage() {
           </div>
           <button
             onClick={restart}
-            className="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
+            className="flex items-center justify-center gap-2 mx-auto px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
           >
-            Try Again →
+            <RotateCcw className="w-4 h-4" /> Try Again
           </button>
         </div>
 
@@ -119,7 +119,9 @@ export default function QuizPage() {
                       {a.chosen}
                     </span>
                     <span className="flex-1">{optLabel(a.question, a.chosen)}</span>
-                    <span className="text-red-500 text-xs font-semibold shrink-0">✗ Your answer</span>
+                    <span className="flex items-center gap-1 text-red-500 text-xs font-semibold shrink-0">
+                      <XCircle className="w-3 h-3" /> Your answer
+                    </span>
                   </div>
 
                   {/* Correct answer */}
@@ -128,7 +130,9 @@ export default function QuizPage() {
                       {a.result.correctAnswer}
                     </span>
                     <span className="flex-1">{optLabel(a.question, a.result.correctAnswer)}</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold shrink-0">✓ Correct</span>
+                    <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs font-semibold shrink-0">
+                      <CheckCircle2 className="w-3 h-3" /> Correct
+                    </span>
                   </div>
 
                   {/* Explanation */}
@@ -227,9 +231,9 @@ export default function QuizPage() {
       {selected && (
         <button
           onClick={next}
-          className="w-full py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
+          className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
         >
-          {index + 1 >= questions.length ? 'See Results →' : 'Next Question →'}
+          {index + 1 >= questions.length ? <>See Results <ArrowRight className="w-4 h-4" /></> : <>Next Question <ArrowRight className="w-4 h-4" /></>}
         </button>
       )}
     </div>

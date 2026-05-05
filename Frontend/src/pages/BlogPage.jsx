@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { useTheme } from '../context/ThemeContext';
+import { Loader2, ArrowLeft, Shield, Key, Lock, Globe, ShieldCheck, BookOpen } from 'lucide-react';
 
 // Category badge colors matching the screenshot
 const categoryColors = {
@@ -16,14 +17,14 @@ const getCategoryStyle = (cat) =>
 
 // Per-category illustrative icons matching the screenshot
 const categoryIcons = {
-  'SQL Injection':         '🛡️',
-  'Broken Authentication': '🔑',
-  'Security Concepts':     '🔒',
-  'Authentication':        '🌐',
-  'Password Security':     '🔐',
+  'SQL Injection':         Shield,
+  'Broken Authentication': Key,
+  'Security Concepts':     Lock,
+  'Authentication':        Globe,
+  'Password Security':     ShieldCheck,
 };
 
-const getCategoryIcon = (cat) => categoryIcons[cat] || '📖';
+const getCategoryIcon = (cat) => categoryIcons[cat] || BookOpen;
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
@@ -42,10 +43,7 @@ export default function BlogPage() {
   if (loading) return (
     <div className="flex items-center justify-center py-32">
       <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-        <svg className="animate-spin h-5 w-5 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-        </svg>
+        <Loader2 className="animate-spin h-5 w-5 text-blue-600 dark:text-blue-400" />
         Loading articles...
       </div>
     </div>
@@ -68,7 +66,7 @@ export default function BlogPage() {
             onClick={() => setSelected(null)}
             className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-sm mb-10 transition-all px-4 py-2 rounded-lg border border-white/10"
           >
-            ← Back to articles
+            <ArrowLeft className="w-4 h-4" /> Back to articles
           </button>
 
           <div className="mb-2">
@@ -112,6 +110,7 @@ export default function BlogPage() {
 
 function BlogCard({ blog, onSelect }) {
   const [flipped, setFlipped] = useState(false);
+  const CategoryIcon = getCategoryIcon(blog.category);
 
   const handleClick = () => {
     if (flipped) return;
@@ -154,8 +153,8 @@ function BlogCard({ blog, onSelect }) {
           </div>
 
           {/* Icon */}
-          <div className="shrink-0 text-3xl sm:text-4xl select-none">
-            {getCategoryIcon(blog.category)}
+          <div className="shrink-0 select-none text-slate-300 dark:text-slate-700">
+            <CategoryIcon className="w-10 h-10 sm:w-12 sm:h-12" />
           </div>
         </div>
 
@@ -172,8 +171,8 @@ function BlogCard({ blog, onSelect }) {
             <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Opening article...</span>
             <h2 className="text-base font-bold text-white mt-0.5 truncate">{blog.title}</h2>
           </div>
-          <div className="shrink-0 text-4xl select-none opacity-60">
-            {getCategoryIcon(blog.category)}
+          <div className="shrink-0 select-none opacity-40 text-blue-400">
+            <CategoryIcon className="w-10 h-10 sm:w-12 sm:h-12" />
           </div>
         </div>
       </div>

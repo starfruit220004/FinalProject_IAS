@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { useTheme } from '../context/ThemeContext';
+import { Loader2, ArrowLeft, ArrowRight, RotateCw, PartyPopper, CheckCircle2 } from 'lucide-react';
 
 export default function FlashcardsPage() {
   const [cards, setCards] = useState([]);
@@ -34,10 +35,7 @@ export default function FlashcardsPage() {
   if (loading) return (
     <div className="flex items-center justify-center py-32">
       <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-        <svg className="animate-spin h-5 w-5 text-cyan-600 dark:text-cyan-500" viewBox="0 0 24 24" fill="none">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-        </svg>
+        <Loader2 className="animate-spin h-5 w-5 text-cyan-600 dark:text-cyan-500" />
         Loading flashcards...
       </div>
     </div>
@@ -113,7 +111,7 @@ export default function FlashcardsPage() {
               <div className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 mb-4">Question</div>
               <div className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed mb-6">{card.question}</div>
               <div className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-600 flex items-center gap-1.5">
-                <span>👆</span> Click to reveal answer
+                <RotateCw className="w-3 h-3" /> Click to reveal answer
               </div>
             </div>
 
@@ -138,31 +136,33 @@ export default function FlashcardsPage() {
         <button
           onClick={prev}
           disabled={index === 0}
-          className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-semibold text-sm rounded-xl disabled:opacity-40 hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-sm"
+          className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-semibold text-sm rounded-xl disabled:opacity-40 hover:border-slate-300 dark:hover:border-white/20 transition-all shadow-sm"
         >
-          ← Prev
+          <ArrowLeft className="w-4 h-4" /> Prev
         </button>
         <button
           onClick={() => setFlipped((f) => !f)}
-          className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all"
+          className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all"
         >
-          Flip
+          <RotateCw className="w-4 h-4" /> Flip
         </button>
         <button
           onClick={next}
           disabled={index === filtered.length - 1}
-          className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
+          className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
             done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
           }`}
         >
-          {done ? '✓ Done!' : 'Next →'}
+          {done ? <><CheckCircle2 className="w-4 h-4" /> Done!</> : <>Next <ArrowRight className="w-4 h-4" /></>}
         </button>
       </div>
 
       {/* Completion */}
       {done && (
         <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-2xl p-6 text-center shadow-sm">
-          <div className="text-2xl mb-2">🎉</div>
+          <div className="flex justify-center mb-2 text-emerald-500">
+            <PartyPopper className="w-10 h-10" />
+          </div>
           <div className="text-base font-bold text-emerald-800 dark:text-emerald-400 mb-1">
             You've reviewed all {filtered.length} cards!
           </div>

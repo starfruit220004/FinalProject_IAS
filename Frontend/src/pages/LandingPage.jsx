@@ -1,30 +1,43 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { 
+  Shield, 
+  Lock, 
+  Key, 
+  CheckCircle, 
+  ArrowRight,
+  ShieldAlert,
+  ShieldCheck,
+  UserPlus,
+  BookOpen,
+  Layers,
+  Lightbulb
+} from "lucide-react";
 
 const features = [
   {
-    icon: "🛡️",
+    icon: Shield,
     title: "SQL Injection",
     desc: "Understand how attackers manipulate database queries and how parameterized statements stop them cold.",
     color: "from-blue-500 to-blue-700",
     badge: "Attack & Defense",
   },
   {
-    icon: "🔐",
+    icon: Lock,
     title: "Broken Authentication",
     desc: "Explore session flaws, credential stuffing, and how JWT tokens keep your users secure.",
     color: "from-teal-500 to-teal-700",
     badge: "OWASP Top 10",
   },
   {
-    icon: "🔑",
+    icon: Key,
     title: "Password Security",
     desc: "Learn why bcrypt, salts, and proper hashing practices are non-negotiable in modern applications.",
     color: "from-indigo-500 to-indigo-700",
     badge: "Cryptography",
   },
   {
-    icon: "✅",
+    icon: CheckCircle,
     title: "Input Validation",
     desc: "Master the first line of defense — sanitizing user data before it ever touches your system.",
     color: "from-cyan-500 to-cyan-700",
@@ -42,21 +55,25 @@ const stats = [
 const steps = [
   {
     num: "01",
+    icon: UserPlus,
     title: "Create an Account",
     desc: "Sign up in seconds with a username and password — secured with bcrypt hashing.",
   },
   {
     num: "02",
+    icon: BookOpen,
     title: "Read the Blog",
     desc: "Start with in-depth articles explaining each vulnerability and its real-world impact.",
   },
   {
     num: "03",
+    icon: Layers,
     title: "Study Flashcards",
     desc: "Flip through interactive cards to reinforce key concepts at your own pace.",
   },
   {
     num: "04",
+    icon: Lightbulb,
     title: "Take the Quiz",
     desc: "Test your knowledge with multiple-choice questions and instant explanations.",
   },
@@ -162,9 +179,9 @@ export default function LandingPage() {
           >
             <button
               onClick={() => navigate("/login")}
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
             >
-              Start Learning Free →
+              Start Learning Free <ArrowRight className="w-5 h-5" />
             </button>
             <button
               onClick={() => navigate("/login")}
@@ -224,8 +241,8 @@ export default function LandingPage() {
                   className={`absolute inset-0 bg-gradient-to-br ${f.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                 />
                 {/* Icon — extra bottom margin so it doesn't crowd the badge */}
-                <div className="text-4xl mb-5 transition-transform duration-300 group-hover:scale-110">
-                  {f.icon}
+                <div className="text-blue-500 dark:text-blue-400 mb-5 transition-transform duration-300 group-hover:scale-110">
+                  <f.icon className="w-10 h-10" />
                 </div>
                 {/* Badge */}
                 <div className="inline-block text-[10px] font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 bg-cyan-600/10 dark:bg-cyan-400/10 px-2.5 py-1 rounded-full mb-4">
@@ -264,11 +281,12 @@ export default function LandingPage() {
                 key={step.num}
                 className="group flex gap-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 hover:border-blue-500/20 dark:hover:border-white/10 transition-all duration-300 shadow-sm dark:shadow-none hover:-translate-y-0.5"
               >
-                {/* Step number — shrink-0 keeps it from collapsing */}
-                <div className="text-4xl font-black text-slate-200 dark:text-slate-800 leading-none shrink-0 select-none group-hover:text-cyan-500 transition-colors duration-300 pt-1">
-                  {step.num}
+                {/* Icon — shrink-0 keeps it from collapsing */}
+                <div className="bg-slate-50 dark:bg-slate-800 w-12 h-12 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-cyan-500 transition-colors duration-300 shrink-0">
+                  <step.icon className="w-6 h-6" />
                 </div>
                 <div>
+                  <div className="text-xs font-bold text-slate-400 mb-1">STEP {step.num}</div>
                   <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-base">
                     {step.title}
                   </h3>
@@ -302,7 +320,7 @@ export default function LandingPage() {
             onClick={() => navigate("/login")}
             className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
           >
-            Create Free Account →
+            Create Free Account <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </section>

@@ -1,12 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { 
+  BookOpen, 
+  Layers, 
+  Lightbulb, 
+  ShieldCheck, 
+  Key, 
+  CheckCircle, 
+  Database,
+  ArrowRight
+} from 'lucide-react';
 
 const modes = [
   {
     label: 'Blog',
     path: '/blog',
-    icon: '📖',
+    icon: BookOpen,
     headerGradient: 'from-blue-400 to-blue-600',
     accentText: 'text-blue-600',
     border: 'border-blue-100',
@@ -18,7 +28,7 @@ const modes = [
   {
     label: 'Flashcards',
     path: '/flashcards',
-    icon: '🃏',
+    icon: Layers,
     headerGradient: 'from-teal-400 to-cyan-500',
     accentText: 'text-cyan-600',
     border: 'border-cyan-100',
@@ -30,7 +40,7 @@ const modes = [
   {
     label: 'Quiz',
     path: '/quiz',
-    icon: '💡',
+    icon: Lightbulb,
     headerGradient: 'from-orange-400 to-amber-500',
     accentText: 'text-orange-600',
     border: 'border-orange-100',
@@ -42,10 +52,10 @@ const modes = [
 ];
 
 const securityFeatures = [
-  { icon: '🛡️', label: 'Password Storage', value: 'bcrypt with salt rounds', sub: 'Never stored in plain text' },
-  { icon: '🔑', label: 'Authentication', value: 'JWT — 24h expiry', sub: 'Stateless & scalable' },
-  { icon: '✅', label: 'Input Validation', value: 'express-validator', sub: 'Sanitized before processing' },
-  { icon: '🗄️', label: 'SQL Safety', value: 'Parameterized queries', sub: 'Injection-proof via Prisma' },
+  { icon: ShieldCheck, label: 'Password Storage', value: 'bcrypt with salt rounds', sub: 'Never stored in plain text' },
+  { icon: Key, label: 'Authentication', value: 'JWT — 24h expiry', sub: 'Stateless & scalable' },
+  { icon: CheckCircle, label: 'Input Validation', value: 'express-validator', sub: 'Sanitized before processing' },
+  { icon: Database, label: 'SQL Safety', value: 'Parameterized queries', sub: 'Injection-proof via Prisma' },
 ];
 
 export default function DashboardPage() {
@@ -71,8 +81,8 @@ export default function DashboardPage() {
               >
                 {/* Colored header */}
                 <div className={`bg-gradient-to-br ${m.headerGradient} p-5 flex items-center justify-between`}>
-                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl">
-                    {m.icon}
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white">
+                    <m.icon className="w-7 h-7" />
                   </div>
                   <span className="text-xs font-black tracking-widest uppercase text-white/90 bg-white/20 px-3 py-1 rounded-full">
                     {m.badge}
@@ -85,9 +95,9 @@ export default function DashboardPage() {
                   <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed flex-1 mb-5">{m.desc}</p>
                   <button
                     onClick={() => navigate(m.path)}
-                    className={`w-full py-2.5 ${m.btnClass} text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg`}
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 ${m.btnClass} text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg`}
                   >
-                    {m.label === 'Blog' ? 'Read Articles' : m.label === 'Flashcards' ? 'Study Cards' : 'Start Quiz'} →
+                    {m.label === 'Blog' ? 'Read Articles' : m.label === 'Flashcards' ? 'Study Cards' : 'Start Quiz'} <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -106,7 +116,9 @@ export default function DashboardPage() {
                 key={f.label}
                 className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-xl p-4 hover:border-blue-500/20 transition-colors shadow-sm"
               >
-                <div className="text-2xl mb-3">{f.icon}</div>
+                <div className="text-blue-500 dark:text-blue-400 mb-3">
+                  <f.icon className="w-6 h-6" />
+                </div>
                 <div className="text-xs text-slate-400 font-semibold uppercase tracking-wide mb-1">{f.label}</div>
                 <div className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">{f.value}</div>
                 <div className="text-xs text-slate-400">{f.sub}</div>

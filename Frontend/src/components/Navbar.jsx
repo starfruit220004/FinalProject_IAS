@@ -3,12 +3,24 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import Profile from "../pages/Profile";
+import { 
+  LayoutDashboard, 
+  BookOpen, 
+  Layers, 
+  HelpCircle, 
+  Sun, 
+  Moon, 
+  LogOut, 
+  Menu, 
+  X,
+  ArrowRight
+} from "lucide-react";
 
 const navLinks = [
-  { path: "/dashboard", label: "Dashboard", icon: "⊞" },
-  { path: "/blog",      label: "Blog",       icon: "📖" },
-  { path: "/flashcards",label: "Flashcards", icon: "🃏" },
-  { path: "/quiz",      label: "Quiz",       icon: "❓" },
+  { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/blog",      label: "Blog",       icon: BookOpen },
+  { path: "/flashcards",label: "Flashcards", icon: Layers },
+  { path: "/quiz",      label: "Quiz",       icon: HelpCircle },
 ];
 
 export default function Navbar() {
@@ -40,11 +52,11 @@ export default function Navbar() {
             {/* Sun + Moon both visible */}
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-0.5 bg-slate-100 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600/40 rounded-xl px-2 py-1.5 transition-all hover:border-blue-400/40"
+              className="flex items-center gap-1 bg-slate-100 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600/40 rounded-xl px-2 py-1.5 transition-all hover:border-blue-400/40"
               title={theme === "dark" ? "Switch to Light" : "Switch to Dark"}
             >
-              <span className={`text-lg transition-opacity ${theme === "light" ? "opacity-100" : "opacity-40"}`}>☀️</span>
-              <span className={`text-lg transition-opacity ${theme === "dark"  ? "opacity-100" : "opacity-40"}`}>🌙</span>
+              <Sun className={`w-4 h-4 transition-opacity ${theme === "light" ? "opacity-100 text-amber-500" : "opacity-40"}`} />
+              <Moon className={`w-4 h-4 transition-opacity ${theme === "dark"  ? "opacity-100 text-blue-400" : "opacity-40"}`} />
             </button>
 
             {/* Profile pill */}
@@ -87,7 +99,7 @@ export default function Navbar() {
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
                   }`}
                 >
-                  <span className="text-base">{link.icon}</span>
+                  <link.icon className="w-4 h-4" />
                   <span>{link.label}</span>
                   {isActive(link.path) && (
                     <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-blue-500 dark:bg-blue-400" />
@@ -103,10 +115,7 @@ export default function Navbar() {
               onClick={handleLogout}
               className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-red-500 hover:bg-red-600 rounded-xl transition-all duration-150 shadow-md shadow-red-500/30 shrink-0 ml-auto"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
+              <LogOut className="w-4 h-4" />
               Logout
             </button>
           )}
@@ -117,9 +126,7 @@ export default function Navbar() {
             className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 ml-auto transition-colors"
             aria-label="Toggle menu"
           >
-            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 w-5 bg-current rounded-full transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
@@ -136,9 +143,9 @@ export default function Navbar() {
                 </button>
                 <button
                   onClick={() => navigate("/login")}
-                  className="w-full text-left px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
                 >
-                  Get Started →
+                  Get Started <ArrowRight className="w-4 h-4" />
                 </button>
               </>
             ) : (
@@ -153,7 +160,7 @@ export default function Navbar() {
                         : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5"
                     }`}
                   >
-                    <span className="text-base">{link.icon}</span>
+                    <link.icon className="w-4 h-4" />
                     {link.label}
                   </button>
                 ))}
@@ -162,10 +169,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
+                  <LogOut className="w-4 h-4" />
                   Logout
                 </button>
               </>

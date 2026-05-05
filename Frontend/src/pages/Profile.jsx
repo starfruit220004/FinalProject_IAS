@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api';
+import { User, Mail, X, LogOut, AlertTriangle, CheckCircle2, Loader2, Key } from 'lucide-react';
 
 export default function Profile({ isOpen, onClose }) {
   const { user, logout } = useAuth();
@@ -94,7 +95,7 @@ export default function Profile({ isOpen, onClose }) {
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
           >
-            ✕
+            <X className="w-5 h-5" />
           </button>
           <div className="relative flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-blue-500/30 shrink-0">
@@ -130,14 +131,14 @@ export default function Profile({ isOpen, onClose }) {
           {tab === 'info' && (
             <div className="space-y-3">
               {[
-                { icon: '👤', label: 'Username', value: user?.username },
-                { icon: '📧', label: 'Email', value: user?.email || '—' },
+                { icon: User, label: 'Username', value: user?.username },
+                { icon: Mail, label: 'Email', value: user?.email || '—' },
               ].map((row) => (
                 <div
                   key={row.label}
                   className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl px-4 py-3"
                 >
-                  <span className="text-base shrink-0">{row.icon}</span>
+                  <row.icon className="w-5 h-5 text-slate-400 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                       {row.label}
@@ -150,9 +151,9 @@ export default function Profile({ isOpen, onClose }) {
               ))}
               <button
                 onClick={() => { logout(); onClose(); }}
-                className="w-full mt-2 py-2.5 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm font-bold rounded-xl hover:bg-red-100 dark:hover:bg-red-500/20 transition-all"
+                className="w-full flex items-center justify-center gap-2 mt-2 py-2.5 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm font-bold rounded-xl hover:bg-red-100 dark:hover:bg-red-500/20 transition-all"
               >
-                Sign Out
+                <LogOut className="w-4 h-4" /> Sign Out
               </button>
             </div>
           )}
@@ -161,12 +162,12 @@ export default function Profile({ isOpen, onClose }) {
             <form onSubmit={handlePwSubmit} className="space-y-4">
               {pwError && (
                 <div className="flex items-start gap-2 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 rounded-xl px-4 py-3 text-sm">
-                  <span className="shrink-0">⚠️</span> {pwError}
+                  <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" /> {pwError}
                 </div>
               )}
               {pwSuccess && (
                 <div className="flex items-start gap-2 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-xl px-4 py-3 text-sm">
-                  <span className="shrink-0">✓</span> {pwSuccess}
+                  <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" /> {pwSuccess}
                 </div>
               )}
               {[
@@ -196,13 +197,14 @@ export default function Profile({ isOpen, onClose }) {
               >
                 {pwLoading ? (
                   <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                    </svg>
+                    <Loader2 className="animate-spin h-4 w-4" />
                     Updating...
                   </span>
-                ) : 'Update Password →'}
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <Key className="w-4 h-4" /> Update Password
+                  </span>
+                )}
               </button>
             </form>
           )}
