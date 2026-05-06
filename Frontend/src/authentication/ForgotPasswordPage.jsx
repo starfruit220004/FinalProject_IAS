@@ -36,12 +36,24 @@ export default function ForgotPasswordPage() {
     }
   };
 
-  // Step 2 — verify OTP only
+  // Step 2 — verify OTP against backend
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     if (otp.length !== 6) { setError('Please enter the full 6-digit code.'); return; }
+    
+    setLoading(true);
     setError('');
-    setStep('password'); // just move to next step, OTP verified on final submit
+    try {
+      await api('/auth/verify-otp', {
+        method: 'POST',
+        body: JSON.stringify({ email, otp }),
+      });
+      setStep('password');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Step 3 — set new password
@@ -172,9 +184,14 @@ export default function ForgotPasswordPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
+                  disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
                 >
-                  Verify Code <ArrowRight className="w-4 h-4" />
+                  {loading ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Verifying...</>
+                  ) : (
+                    <>Verify Code <ArrowRight className="w-4 h-4" /></>
+                  )}
                 </button>
                 <div className="text-center">
                   <button

@@ -1,4 +1,4 @@
-# SecureLearn — Step-by-Step Setup Guide
+# Step-by-Step Setup Guide
 
 ## Project Structure
 

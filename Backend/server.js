@@ -28,7 +28,7 @@ app.use(cors({
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.json({ message: 'SecureLearn API is running.', docs: 'https://final-project-ias.vercel.app' });
+  res.json({ message: 'API is running.', docs: 'https://final-project-ias.vercel.app' });
 });
 
 app.use('/api/auth', authRoutes);

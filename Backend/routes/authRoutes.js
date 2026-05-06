@@ -217,6 +217,45 @@ router.post('/forgot-password', [
   }
 });
 
+// POST /api/auth/verify-otp
+router.post('/verify-otp', [
+  body('email').trim().isEmail().withMessage('Valid email is required'),
+  body('otp').trim().notEmpty().withMessage('OTP is required'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg });
+  }
+
+  const { email, otp } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user || !user.otp || !user.otpExpiry) {
+      return res.status(400).json({ message: 'Invalid or expired reset code.' });
+    }
+
+    if (new Date() > new Date(user.otpExpiry)) {
+      await prisma.user.update({
+        where: { email },
+        data: { otp: null, otpExpiry: null },
+      });
+      return res.status(400).json({ message: 'Reset code has expired. Please request a new one.' });
+    }
+
+    const isValidOtp = await bcrypt.compare(otp.trim(), user.otp);
+    if (!isValidOtp) {
+      return res.status(400).json({ message: 'Incorrect reset code.' });
+    }
+
+    res.json({ message: 'OTP verified.' });
+  } catch (err) {
+    console.error('Verify OTP error:', err.message);
+    res.status(500).json({ message: 'Server error. Please try again.' });
+  }
+});
+
 // POST /api/auth/reset-password
 router.post('/reset-password', [
   body('email').trim().isEmail().withMessage('Please enter a valid email'),
