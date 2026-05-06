@@ -73,12 +73,6 @@ export default function ResetPasswordPage() {
 
       <div className="relative w-full max-w-md">
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 shadow-2xl shadow-black/5 dark:shadow-black/50">
-          <div className="flex items-center gap-2.5 mb-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-sm font-black text-white shadow-lg shadow-blue-500/30">
-              S
-            </div>
-            <span className="font-black text-xl text-slate-900 dark:text-white tracking-tight">SecureLearn</span>
-          </div>
 
           {!success ? (
             <>

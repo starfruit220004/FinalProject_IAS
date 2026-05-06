@@ -293,7 +293,7 @@ export default function LandingPage() {
             Ready to level up<br />your security skills?
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed">
-            Join SecureLearn and start mastering web application security today — completely free.
+            Join and start mastering web application security today — completely free.
           </p>
           <button
             onClick={() => navigate("/register")}
@@ -350,12 +350,6 @@ export default function LandingPage() {
       {/* ── FOOTER ── */}
       <footer className="border-t border-slate-200 dark:border-white/5 py-12 px-6 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-6xl mx-auto flex flex-col items-center gap-5">
-          <div className="flex items-center gap-2 text-slate-900 dark:text-white font-black text-lg">
-            <span className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
-              SL
-            </span>
-            SecureLearn
-          </div>
           <p className="text-sm text-slate-500 dark:text-slate-600 text-center max-w-sm leading-relaxed">
             The comprehensive hub for mastering Information Assurance & Security through interactive learning and practice.
           </p>

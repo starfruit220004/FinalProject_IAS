@@ -98,14 +98,6 @@ export default function ForgotPasswordPage() {
 
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 shadow-2xl shadow-black/5 dark:shadow-black/50">
 
-          {/* Logo */}
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-sm font-black text-white shadow-lg shadow-blue-500/30">
-              S
-            </div>
-            <span className="font-black text-xl text-slate-900 dark:text-white tracking-tight">SecureLearn</span>
-          </div>
-
           {/* Error */}
           {error && (
             <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 rounded-xl px-4 py-3 text-sm mb-5">
