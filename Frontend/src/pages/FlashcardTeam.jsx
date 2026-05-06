@@ -5,9 +5,9 @@ import { Loader2, ArrowLeft, ArrowRight, RotateCw, PartyPopper, CheckCircle2, Ch
 
 const TEAM = [
   { name: 'Danny D.P. Dinglasa Jr.',    initials: 'DD', color: 'from-cyan-500 to-blue-600' },
-  { name: 'Neal Jean L. Claro',         initials: 'NC', color: 'from-violet-500 to-purple-600' },
-  { name: 'Hannah Jean T. Baimbingan',  initials: 'HB', color: 'from-emerald-500 to-teal-600' },
-  { name: 'Erica C. Aquino',            initials: 'EA', color: 'from-pink-500 to-rose-600' },
+  { name: 'Neal Jean L. Claro',         initials: 'NC', color: 'from-violet-500 to-purple-600', image: '/neal.jpg' },
+  { name: 'Hannah Jean T. Baimbingan',  initials: 'HB', color: 'from-emerald-500 to-teal-600', image: '/hannah.jpg' },
+  { name: 'Erica C. Aquino',            initials: 'EA', color: 'from-pink-500 to-rose-600',    image: '/erica.jpg' },
   { name: 'Junairah B. Guarino',        initials: 'JG', color: 'from-amber-500 to-orange-600' },
 ];
 
@@ -213,8 +213,12 @@ export default function FlashcardsPage() {
               key={member.name}
               className="flex flex-col items-center gap-2 w-[120px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-4 shadow-sm hover:shadow-md dark:shadow-none hover:-translate-y-1 transition-all duration-200"
             >
-              <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-base shadow-sm`}>
-                {member.initials}
+              <div className={`w-14 h-14 rounded-full overflow-hidden bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-base shadow-sm`}>
+                {member.image ? (
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                ) : (
+                  member.initials
+                )}
               </div>
               <p className="text-center text-[11px] font-bold text-slate-800 dark:text-white leading-tight">
                 {member.name}
