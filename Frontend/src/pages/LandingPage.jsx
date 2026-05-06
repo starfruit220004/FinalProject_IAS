@@ -158,7 +158,7 @@ export default function LandingPage() {
             className="inline-flex items-center gap-2 bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 rounded-full px-4 py-1.5 text-xs font-semibold text-cyan-600 dark:text-cyan-400 tracking-widest uppercase mb-8"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 dark:bg-cyan-400 animate-pulse" />
-            Final Project Security Learning Hub
+            Final Project Information Assurance and Security
           </div>
 
           <h1

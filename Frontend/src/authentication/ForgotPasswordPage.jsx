@@ -218,7 +218,7 @@ export default function ForgotPasswordPage() {
                   <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2">
                     New Password
                   </label>
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <input
                       type={showNewPassword ? 'text' : 'password'}
                       value={newPassword}
@@ -234,6 +234,18 @@ export default function ForgotPasswordPage() {
                     >
                       {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
+                  </div>
+                  
+                  {/* Elegant Checklist */}
+                  <div className="grid grid-cols-1 gap-2 mb-6">
+                    {passwordRequirements.map((req, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${req.met ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-300 dark:bg-slate-700'}`} />
+                        <span className={`text-[11px] font-medium transition-colors duration-300 ${req.met ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`}>
+                          {req.label}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div>
