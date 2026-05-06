@@ -6,12 +6,11 @@ import {
   Key, 
   CheckCircle, 
   ArrowRight,
-  ShieldAlert,
-  ShieldCheck,
   UserPlus,
   BookOpen,
   Layers,
-  Lightbulb
+  Lightbulb,
+  ChevronDown
 } from "lucide-react";
 
 const features = [
@@ -79,9 +78,18 @@ const steps = [
   },
 ];
 
+const TEAM = [
+  { name: "Danny D.P. Dinglasa Jr.", initials: "DD", color: "from-cyan-500 to-blue-600" },
+  { name: "Neal Jean L. Claro",      initials: "NC", color: "from-violet-500 to-purple-600" },
+  { name: "Hannah Jean T. Baimbingan", initials: "HB", color: "from-emerald-500 to-teal-600" },
+  { name: "Erica C. Aquino",         initials: "EA", color: "from-pink-500 to-rose-600" },
+  { name: "Junairah B. Guarino",     initials: "JG", color: "from-amber-500 to-orange-600" },
+];
+
 export default function LandingPage() {
   const navigate = useNavigate();
   const heroRef = useRef(null);
+  const teamRef = useRef(null);
 
   const phrases = [
     "The Right Way",
@@ -128,14 +136,15 @@ export default function LandingPage() {
     });
   }, []);
 
+  const scrollToTeam = () => {
+    teamRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white font-sans overflow-x-hidden transition-colors duration-300">
 
       {/* ── HERO ── */}
-      <section
-        ref={heroRef}
-        className="relative pt-28 pb-16 px-6 overflow-hidden"
-      >
+      <section ref={heroRef} className="relative pt-28 pb-16 px-6 overflow-hidden">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none blur-3xl"
           style={{ background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)" }}
@@ -173,12 +182,9 @@ export default function LandingPage() {
             in one secure platform.
           </p>
 
-          <div
-            data-animate
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
+          <div data-animate className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/register")}
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
             >
               Start Learning Free <ArrowRight className="w-5 h-5" />
@@ -190,72 +196,59 @@ export default function LandingPage() {
               Sign In
             </button>
           </div>
+
+          {/* ── Scroll-to-team hint ── */}
+          <div data-animate className="mt-8 flex justify-center">
+            <button
+              onClick={scrollToTeam}
+              className="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200 group"
+            >
+              <span className="text-xs font-semibold tracking-widest uppercase">Meet the Team</span>
+              <span className="text-[11px] text-slate-400 dark:text-slate-600">Curious who built this? Scroll down</span>
+              <ChevronDown className="w-4 h-4 animate-bounce group-hover:text-cyan-500" />
+            </button>
+          </div>
         </div>
 
-        {/* Stats strip — generous top margin so it breathes below the CTAs */}
+        {/* Stats strip */}
         <div
           data-animate
-          className="relative max-w-3xl mx-auto mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-200 dark:bg-white/5 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-md dark:shadow-none"
+          className="relative max-w-3xl mx-auto mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-200 dark:bg-white/5 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-md dark:shadow-none"
         >
           {stats.map((s) => (
-            <div
-              key={s.label}
-              className="bg-white dark:bg-slate-900/80 backdrop-blur px-6 py-8 text-center"
-            >
-              <div className="text-3xl font-black text-slate-900 dark:text-white mb-2">
-                {s.value}
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-500 font-medium tracking-wide uppercase">
-                {s.label}
-              </div>
+            <div key={s.label} className="bg-white dark:bg-slate-900/80 backdrop-blur px-6 py-8 text-center">
+              <div className="text-3xl font-black text-slate-900 dark:text-white mb-2">{s.value}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-500 font-medium tracking-wide uppercase">{s.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── FEATURES ── */}
-      {/* Extra top padding so the section doesn't press against the hero */}
       <section className="pt-16 pb-20 px-6 border-t border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-transparent">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">
-              What You'll Learn
-            </div>
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
-              Core Security Concepts
-            </h2>
+            <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">What You'll Learn</div>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4">Core Security Concepts</h2>
             <p className="text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
-              Every module is grounded in real-world attack patterns and
-              defenses used by professional security engineers.
+              Every module is grounded in real-world attack patterns and defenses used by professional security engineers.
             </p>
           </div>
-
-          {/* Cards — gap-8 between cards, p-8 inside each card for internal breathing room */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((f) => (
               <div
                 key={f.title}
                 className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 hover:border-blue-500/30 dark:hover:border-white/10 hover:-translate-y-1.5 transition-all duration-300 cursor-default overflow-hidden shadow-sm dark:shadow-none flex flex-col items-center text-center"
               >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${f.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
-                />
-                {/* Icon — extra bottom margin so it doesn't crowd the badge */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${f.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                 <div className="text-blue-500 dark:text-blue-400 mb-5 transition-transform duration-300 group-hover:scale-110">
                   <f.icon className="w-10 h-10" />
                 </div>
-                {/* Badge */}
                 <div className="inline-block text-[10px] font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 bg-cyan-600/10 dark:bg-cyan-400/10 px-2.5 py-1 rounded-full mb-4">
                   {f.badge}
                 </div>
-                {/* Title */}
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">
-                  {f.title}
-                </h3>
-                {/* Description */}
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {f.desc}
-                </p>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">{f.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -266,33 +259,22 @@ export default function LandingPage() {
       <section className="pt-16 pb-20 px-6 bg-slate-100 dark:bg-slate-900/40 border-t border-slate-200 dark:border-white/5">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">
-              How It Works
-            </div>
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white">
-              Four Steps to Mastery
-            </h2>
+            <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">How It Works</div>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white">Four Steps to Mastery</h2>
           </div>
-
-          {/* Step cards — gap-8 between cards, p-8 inside */}
           <div className="grid sm:grid-cols-2 gap-8">
             {steps.map((step) => (
               <div
                 key={step.num}
                 className="group flex gap-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 hover:border-blue-500/20 dark:hover:border-white/10 transition-all duration-300 shadow-sm dark:shadow-none hover:-translate-y-0.5"
               >
-                {/* Icon — shrink-0 keeps it from collapsing */}
                 <div className="bg-slate-50 dark:bg-slate-800 w-12 h-12 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-cyan-500 transition-colors duration-300 shrink-0">
                   <step.icon className="w-6 h-6" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-slate-400 mb-1">STEP {step.num}</div>
-                  <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-base">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {step.desc}
-                  </p>
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-3 text-base">{step.title}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -308,20 +290,56 @@ export default function LandingPage() {
         />
         <div className="relative max-w-2xl mx-auto text-center">
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
-            Ready to level up
-            <br />
-            your security skills?
+            Ready to level up<br />your security skills?
           </h2>
           <p className="text-slate-600 dark:text-slate-400 mb-10 text-lg leading-relaxed">
-            Join SecureLearn and start mastering web application security today
-            — completely free.
+            Join SecureLearn and start mastering web application security today — completely free.
           </p>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/register")}
             className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
           >
             Create Free Account <ArrowRight className="w-5 h-5" />
           </button>
+        </div>
+      </section>
+
+      {/* ── MEET THE TEAM ── */}
+      <section
+        ref={teamRef}
+        className="pt-16 pb-20 px-6 border-t border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-transparent"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">The People Behind This</div>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-3">Meet the Team</h2>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full" />
+          </div>
+
+          {/* 5 members — wraps gracefully on mobile */}
+          <div className="flex flex-wrap justify-center gap-5">
+            {TEAM.map((member, i) => (
+              <div
+                key={member.name}
+                className="flex flex-col items-center gap-3 w-[140px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5 shadow-sm hover:shadow-md dark:shadow-none hover:-translate-y-1 transition-all duration-200"
+              >
+                {/* Avatar */}
+                <div
+                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-lg shadow-sm`}
+                >
+                  {member.initials}
+                </div>
+                {/* Name */}
+                <p className="text-center text-[11px] font-bold text-slate-800 dark:text-white leading-tight">
+                  {member.name}
+                </p>
+                {/* Badge */}
+                <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 text-[10px] font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/10">
+                  Member
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -335,8 +353,7 @@ export default function LandingPage() {
             SecureLearn
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-600 text-center max-w-sm leading-relaxed">
-            The comprehensive hub for mastering Information Assurance & Security
-            through interactive learning and practice.
+            The comprehensive hub for mastering Information Assurance & Security through interactive learning and practice.
           </p>
           <div className="h-px w-10 bg-slate-200 dark:bg-slate-800" />
           <p className="text-xs text-slate-400 dark:text-slate-500">
