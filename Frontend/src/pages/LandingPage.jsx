@@ -81,7 +81,7 @@ const steps = [
 const TEAM = [
   { name: "Danny D.P. Dinglasa Jr.", initials: "DD", color: "from-cyan-500 to-blue-600" },
   { name: "Neal Jean L. Claro",      initials: "NC", color: "from-violet-500 to-purple-600" },
-  { name: "Hannah Jean T. Baimbingan", initials: "HB", color: "from-emerald-500 to-teal-600" },
+  { name: "Hannah Jean T. Baimbingan", initials: "HB", color: "from-emerald-500 to-teal-600", image: "/hannah.jpg" },
   { name: "Erica C. Aquino",         initials: "EA", color: "from-pink-500 to-rose-600" },
   { name: "Junairah B. Guarino",     initials: "JG", color: "from-amber-500 to-orange-600" },
 ];
@@ -325,9 +325,13 @@ export default function LandingPage() {
               >
                 {/* Avatar */}
                 <div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-lg shadow-sm`}
+                  className={`w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-lg shadow-sm`}
                 >
-                  {member.initials}
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                  ) : (
+                    member.initials
+                  )}
                 </div>
                 {/* Name */}
                 <p className="text-center text-[11px] font-bold text-slate-800 dark:text-white leading-tight">
