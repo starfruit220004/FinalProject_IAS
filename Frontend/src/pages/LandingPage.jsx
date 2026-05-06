@@ -26,7 +26,7 @@ const features = [
     title: "Broken Authentication",
     desc: "Explore session flaws, credential stuffing, and how JWT tokens keep your users secure.",
     color: "from-teal-500 to-teal-700",
-    badge: "OWASP Top 10",
+    badge: "OWASP",
   },
   {
     icon: Key,
