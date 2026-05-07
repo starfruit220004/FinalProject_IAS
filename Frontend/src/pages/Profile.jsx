@@ -116,7 +116,7 @@ export default function Profile({ isOpen, onClose }) {
               onClick={() => setTab(t)}
               className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
                 tab === t
-                  ? 'bg-gradient-to-red from-cyan-500 to-blue-600 text-white shadow-sm'
+                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-sm'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white'
               }`}
             >
@@ -193,7 +193,7 @@ export default function Profile({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={pwLoading}
-                className="w-full py-3 bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
               >
                 {pwLoading ? (
                   <span className="flex items-center justify-center gap-2">

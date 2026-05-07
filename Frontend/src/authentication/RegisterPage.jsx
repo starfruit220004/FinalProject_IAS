@@ -74,7 +74,7 @@ export default function RegisterPage() {
             >
               Sign In
             </Link>
-            <span className="flex-1 py-2 rounded-lg text-sm font-semibold text-center bg-gradient-to-red from-cyan-500 to-blue-600 text-white shadow-sm">
+            <span className="flex-1 py-2 rounded-lg text-sm font-semibold text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-sm">
               Register
             </span>
           </div>
@@ -181,7 +181,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20 mt-2"
+              className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20 mt-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

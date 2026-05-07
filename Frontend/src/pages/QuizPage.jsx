@@ -92,7 +92,7 @@ export default function QuizPage() {
           </div>
           <button
             onClick={restart}
-            className="flex items-center justify-center gap-2 mx-auto px-8 py-3 bg-gradient-to-red from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
+            className="flex items-center justify-center gap-2 mx-auto px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
           >
             <RotateCcw className="w-4 h-4" /> Try Again
           </button>
@@ -210,7 +210,7 @@ export default function QuizPage() {
       {/* Progress */}
       <div className="w-full h-1.5 bg-slate-200 dark:bg-white/10 rounded-full mb-7 overflow-hidden">
         <div
-          className="h-full bg-gradient-to-red from-orange-500 to-amber-500 rounded-full transition-all duration-500"
+          className="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full transition-all duration-500"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -242,7 +242,7 @@ export default function QuizPage() {
       {selected && (
         <button
           onClick={next}
-          className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-red from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
+          className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20"
         >
           {index + 1 >= questions.length ? <>See Results <ArrowRight className="w-4 h-4" /></> : <>Next Question <ArrowRight className="w-4 h-4" /></>}
         </button>

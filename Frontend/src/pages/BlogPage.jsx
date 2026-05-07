@@ -15,7 +15,7 @@ const categoryColors = {
 const getCategoryStyle = (cat) =>
   categoryColors[cat] || 'bg-slate-500 text-white';
 
-// Per-category illustrative icons matching the screenshot
+// Per-category illustrative icons
 const categoryIcons = {
   'SQL Injection':         Shield,
   'Broken Authentication': Key,
@@ -57,7 +57,7 @@ export default function BlogPage() {
     </div>
   );
 
-  // Article detail view - dark navy in both modes (matching screenshot)
+  // Article detail view - dark navy in both modes 
   if (selected) {
     return (
       <div className="min-h-screen bg-slate-900">

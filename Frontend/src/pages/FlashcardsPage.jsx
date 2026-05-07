@@ -79,7 +79,7 @@ export default function FlashcardsPage() {
       <div className="flex items-center gap-3 mb-6">
         <div className="flex-1 h-1.5 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-red from-cyan-500 to-blue-600 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-500"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -162,7 +162,7 @@ export default function FlashcardsPage() {
           onClick={next}
           disabled={index === filtered.length - 1}
           className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
-            done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
+            done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
           }`}
         >
           {done ? <><CheckCircle2 className="w-4 h-4" /> Done!</> : <>Next <ArrowRight className="w-4 h-4" /></>}

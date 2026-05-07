@@ -246,7 +246,7 @@ export default function LessonsPage() {
             <AlertTriangle className="w-6 h-6 text-slate-400" />
           </div>
           <h3 className="font-bold text-slate-500 dark:text-slate-400">More Lessons Coming Soon</h3>
-          <p className="text-xs text-slate-400 mt-1">Check back later for Cross-Site Scripting (XSS) and more.</p>
+          <p className="text-xs text-slate-400 mt-1">There is more. Coming soon!</p>
         </div>
       </div>
     </div>
