@@ -84,9 +84,9 @@ In our login form, we validate that username and password fields are not empty, 
         },
       ],
     });
-    console.log('✅ Blogs seeded');
+    console.log('Blogs seeded');
   } else {
-    console.log('⏭️  Blogs already exist, skipping');
+    console.log(' Blogs already exist, skipping');
   }
 
   // ── FLASHCARDS ─────────────────────────────────────────
@@ -106,9 +106,9 @@ In our login form, we validate that username and password fields are not empty, 
         { question: 'What happens if passwords are stored in plain text?', answer: 'If the database is breached, all user passwords are immediately exposed. Attackers can use them to log into the app and potentially other services where users reused the same password.', category: 'Password Security' },
       ],
     });
-    console.log('✅ Flashcards seeded');
+    console.log('Flashcards seeded');
   } else {
-    console.log('⏭️  Flashcards already exist, skipping');
+    console.log('Flashcards already exist, skipping');
   }
 
   // ── QUIZZES ────────────────────────────────────────────
@@ -126,17 +126,17 @@ In our login form, we validate that username and password fields are not empty, 
         { question: 'What is the main goal of the principle of least privilege?', option_a: 'To make applications run faster', option_b: 'To limit damage by giving components only the permissions they need', option_c: 'To prevent users from logging in', option_d: 'To encrypt all database fields', correct_answer: 'B', explanation: 'Least privilege limits the access rights of users, programs, and processes to only what is strictly required, minimizing the impact of a security breach.', category: 'Security Concepts' },
       ],
     });
-    console.log('✅ Quizzes seeded');
+    console.log(' Quizzes seeded');
   } else {
-    console.log('⏭️  Quizzes already exist, skipping');
+    console.log('Quizzes already exist, skipping');
   }
 
-  console.log('🎉 Seeding complete!');
+  console.log('Seeding complete!');
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Seed error:', e);
+    console.error('Seed error:', e);
     process.exit(1);
   })
   .finally(async () => {

@@ -24,7 +24,7 @@ const sendEmail = async ({ email, subject, html }) => {
     throw new Error(error.message || 'Failed to send email');
   }
 
-  console.log('✅ OTP email sent via Brevo API');
+  console.log('OTP email sent via Brevo API');
 };
 
 module.exports = sendEmail;

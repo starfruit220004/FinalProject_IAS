@@ -186,29 +186,18 @@ export default function LandingPage() {
           </p>
 
           <div data-animate className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            {user ? (
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
-              >
-                Go to Dashboard <ArrowRight className="w-5 h-5" />
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => navigate("/register")}
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
-                >
-                  Start Learning Free <ArrowRight className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => navigate("/login")}
-                  className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold text-base rounded-xl transition-all duration-200"
-                >
-                  Sign In
-                </button>
-              </>
-            )}
+            <button
+              onClick={() => navigate("/register")}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
+            >
+              Start Learning Free <ArrowRight className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold text-base rounded-xl transition-all duration-200"
+            >
+              Sign In
+            </button>
           </div>
 
           {/* ── Scroll-to-team hint ── */}
@@ -320,10 +309,10 @@ export default function LandingPage() {
             Join and start mastering web application security today — completely free.
           </p>
           <button
-            onClick={() => navigate(user ? "/dashboard" : "/register")}
+            onClick={() => navigate("/register")}
             className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
           >
-            {user ? "Back to Dashboard" : "Create Free Account"} <ArrowRight className="w-5 h-5" />
+            Create Free Account <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </section>

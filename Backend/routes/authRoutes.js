@@ -305,7 +305,7 @@ router.post('/reset-password', [
       },
     });
 
-    console.log(`✅ Password reset for user: ${user.username}`);
+    console.log(`Password reset for user: ${user.username}`);
     res.json({ message: 'Password reset successfully.' });
 
   } catch (err) {

@@ -26,7 +26,7 @@ const prisma = new PrismaClient({
 
 const initDB = async () => {
   try {
-    // Check if we already have data
+    
     const blogCount = await prisma.blog.count();
     
     if (blogCount === 0) {
