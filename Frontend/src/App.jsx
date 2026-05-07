@@ -33,20 +33,25 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-            <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/lessons" element={<LessonsPage />} />
-              <Route path="/flashcards" element={<FlashcardsPage />} />
-              <Route path="/quiz" element={<QuizPage />} />
+            {/* Protected routes — ProtectedRoute checks auth*/}
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/lessons" element={<LessonsPage />} />
+                <Route path="/flashcards" element={<FlashcardsPage />} />
+                <Route path="/quiz" element={<QuizPage />} />
+              </Route>
             </Route>
 
+            {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
