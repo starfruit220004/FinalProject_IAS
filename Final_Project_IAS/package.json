@@ -1,0 +1,10 @@
+{
+  "name": "finalproject",
+  "version": "1.0.0",
+  "description": "Full-stack security learning hub",
+  "scripts": {
+    "dev": "echo '--- IAS SECURITY HUB ---' && echo 'Frontend: http://localhost:3000' && echo 'Backend:  http://localhost:5000/api/health' && echo '--------------------------' && echo 'TIP: Press Ctrl+Shift+B in VS Code to open both in Split Terminals.'",
+    "backend": "npm start --prefix Backend",
+    "frontend": "npm start --prefix Frontend"
+  }
+}

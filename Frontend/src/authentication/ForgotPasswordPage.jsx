@@ -16,6 +16,15 @@ export default function ForgotPasswordPage() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  // ── Password requirements checklist ──
+  const passwordRequirements = [
+    { label: 'At least 8 characters', met: newPassword.length >= 8 },
+    { label: 'One lowercase letter', met: /[a-z]/.test(newPassword) },
+    { label: 'One uppercase letter', met: /[A-Z]/.test(newPassword) },
+    { label: 'One number', met: /[0-9]/.test(newPassword) },
+    { label: 'One symbol (!@#$...)', met: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword) },
+  ];
+
   // Step 1 — send OTP to email
   const handleSendOtp = async (e) => {
     e.preventDefault();
@@ -235,7 +244,7 @@ export default function ForgotPasswordPage() {
                       {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                  
+
                   {/* Checklist */}
                   <div className="grid grid-cols-1 gap-2 mb-6">
                     {passwordRequirements.map((req, idx) => (
