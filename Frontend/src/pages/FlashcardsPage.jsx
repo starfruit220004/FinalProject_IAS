@@ -79,7 +79,7 @@ export default function FlashcardsPage() {
       <div className="flex items-center gap-3 mb-6">
         <div className="flex-1 h-1.5 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-red from-cyan-500 to-blue-600 rounded-full transition-all duration-500"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -94,7 +94,7 @@ export default function FlashcardsPage() {
           onClick={() => setFlipped((f) => !f)}
         >
           <div
-            className="h-full min-h-[280px]"
+            className="h-full min-h-70"
             style={{
               position: 'relative',
               width: '100%',
@@ -105,7 +105,7 @@ export default function FlashcardsPage() {
           >
             {/* Front */}
             <div
-              className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/5 flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-sm dark:shadow-none min-h-[280px]"
+              className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/5 flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-sm dark:shadow-none min-h-70"
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <div className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 mb-4">Question</div>
@@ -117,7 +117,7 @@ export default function FlashcardsPage() {
 
             {/* Back */}
             <div
-              className={`absolute inset-0 ${backBg} border ${theme === 'dark' ? 'border-white' : 'border-slate-800'} rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-lg dark:shadow-none min-h-[280px]`}
+              className={`absolute inset-0 ${backBg} border ${theme === 'dark' ? 'border-white' : 'border-slate-800'} rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center shadow-lg dark:shadow-none min-h-70`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -162,7 +162,7 @@ export default function FlashcardsPage() {
           onClick={next}
           disabled={index === filtered.length - 1}
           className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-white font-semibold text-sm rounded-xl disabled:opacity-40 transition-all ${
-            done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
+            done ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500'
           }`}
         >
           {done ? <><CheckCircle2 className="w-4 h-4" /> Done!</> : <>Next <ArrowRight className="w-4 h-4" /></>}

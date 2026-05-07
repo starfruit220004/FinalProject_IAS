@@ -89,8 +89,8 @@ export default function Profile({ isOpen, onClose }) {
       <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl shadow-black/50 border border-slate-200 dark:border-white/5 overflow-hidden">
 
         {/* Header */}
-        <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 px-6 pt-8 pb-14">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-cyan-500/5 pointer-events-none" />
+        <div className="relative bg-linear-to-br from-slate-900 to-slate-800 px-6 pt-8 pb-14">
+          <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-cyan-500/5 pointer-events-none" />
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
@@ -98,7 +98,7 @@ export default function Profile({ isOpen, onClose }) {
             <X className="w-5 h-5" />
           </button>
           <div className="relative flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-blue-500/30 shrink-0">
+            <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-blue-500/30 shrink-0">
               {initials}
             </div>
             <div>
@@ -116,7 +116,7 @@ export default function Profile({ isOpen, onClose }) {
               onClick={() => setTab(t)}
               className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
                 tab === t
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-sm'
+                  ? 'bg-gradient-to-red from-cyan-500 to-blue-600 text-white shadow-sm'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white'
               }`}
             >
@@ -193,7 +193,7 @@ export default function Profile({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={pwLoading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
+                className="w-full py-3 bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/20"
               >
                 {pwLoading ? (
                   <span className="flex items-center justify-center gap-2">

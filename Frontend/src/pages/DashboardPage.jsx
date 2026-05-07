@@ -106,7 +106,7 @@ export default function DashboardPage() {
                 className={`group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-xl shadow-sm`}
               >
                 {/* Colored header */}
-                <div className={`bg-gradient-to-br ${m.headerGradient} p-5 flex items-center justify-between`}>
+                <div className={`bg-linear-to-br ${m.headerGradient} p-5 flex items-center justify-between`}>
                   <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white">
                     <m.icon className="w-6 h-6" />
                   </div>

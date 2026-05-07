@@ -151,7 +151,7 @@ export default function LessonsPage() {
 
           {/* Sidebar: Documentation & Info */}
           <div className="lg:w-80 shrink-0 space-y-6">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-white dark:to-slate-100 rounded-3xl p-6 text-white dark:text-slate-900 shadow-xl">
+            <div className="bg-linear-to-br from-slate-900 to-slate-800 dark:from-white dark:to-slate-100 rounded-3xl p-6 text-white dark:text-slate-900 shadow-xl">
               <h3 className="text-sm font-black uppercase tracking-widest opacity-60 mb-4">Insights</h3>
               <p className="text-sm opacity-90 leading-relaxed mb-6">
                 To further enhance your understanding of the technical details, you may explore our comprehensive laboratory documentation.
@@ -208,7 +208,7 @@ export default function LessonsPage() {
             key={lesson.id}
             className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-[2.5rem] p-8 hover:border-blue-500/50 transition-all duration-300 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1"
           >
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${lesson.color} flex items-center justify-center text-white mb-6 shadow-lg`}>
+            <div className={`w-14 h-14 rounded-2xl bg-linear-to-br ${lesson.color} flex items-center justify-center text-white mb-6 shadow-lg`}>
               <lesson.icon className="w-7 h-7" />
             </div>
 

@@ -147,7 +147,7 @@ export default function LandingPage() {
       {/* ── HERO ── */}
       <section ref={heroRef} className="relative pt-28 pb-16 px-6 overflow-hidden">
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none blur-3xl"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-225 h-125 pointer-events-none blur-3xl"
           style={{ background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)" }}
         />
         <div className="absolute top-16 left-1/4 w-72 h-72 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -168,7 +168,7 @@ export default function LandingPage() {
           >
             Learn Web Security
             <br />
-            <span className="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent min-h-[1.2em] inline-block">
+            <span className="bg-gradient-to-red from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent min-h-[1.2em] inline-block">
               {typedText}
               <span className="animate-pulse text-cyan-600 dark:text-cyan-400">|</span>
             </span>
@@ -186,7 +186,7 @@ export default function LandingPage() {
           <div data-animate className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => navigate("/register")}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
             >
               Start Learning Free <ArrowRight className="w-5 h-5" />
             </button>
@@ -241,7 +241,7 @@ export default function LandingPage() {
                 key={f.title}
                 className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-8 hover:border-blue-500/30 dark:hover:border-white/10 hover:-translate-y-1.5 transition-all duration-300 cursor-default overflow-hidden shadow-sm dark:shadow-none flex flex-col items-center text-center"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${f.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${f.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                 <div className="text-blue-500 dark:text-blue-400 mb-5 transition-transform duration-300 group-hover:scale-110">
                   <f.icon className="w-10 h-10" />
                 </div>
@@ -296,7 +296,7 @@ export default function LandingPage() {
       {/* ── CTA ── */}
       <section className="pt-20 pb-24 px-6 border-t border-slate-200 dark:border-white/5 relative overflow-hidden">
         <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] pointer-events-none blur-[100px] rounded-full"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-175 h-87.5 pointer-events-none blur-[100px] rounded-full"
           style={{ background: "rgba(37,99,235,0.07)" }}
         />
         <div className="relative max-w-2xl mx-auto text-center">
@@ -308,7 +308,7 @@ export default function LandingPage() {
           </p>
           <button
             onClick={() => navigate("/register")}
-            className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-red from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
           >
             Create Free Account <ArrowRight className="w-5 h-5" />
           </button>
@@ -324,7 +324,7 @@ export default function LandingPage() {
           <div className="text-center mb-10">
             <div className="text-xs font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase mb-3">The People Behind This</div>
             <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-3">Meet the Team</h2>
-            <div className="w-10 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full" />
+            <div className="w-10 h-0.5 bg-gradient-to-red from-cyan-500 to-blue-600 mx-auto rounded-full" />
           </div>
 
           {/* 5 members — wraps gracefully on mobile */}
@@ -332,11 +332,11 @@ export default function LandingPage() {
             {TEAM.map((member, i) => (
               <div
                 key={member.name}
-                className="flex flex-col items-center gap-3 w-[140px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5 shadow-sm hover:shadow-md dark:shadow-none hover:-translate-y-1 transition-all duration-200"
+                className="flex flex-col items-center gap-3 w-35 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-5 shadow-sm hover:shadow-md dark:shadow-none hover:-translate-y-1 transition-all duration-200"
               >
                 {/* Avatar */}
                 <div
-                  className={`w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-black text-lg shadow-sm`}
+                  className={`w-16 h-16 rounded-full overflow-hidden bg-linear-to-br ${member.color} flex items-center justify-center text-white font-black text-lg shadow-sm`}
                 >
                   {member.image ? (
                     <img src={member.image} alt={member.name} className="w-full h-full object-cover" />

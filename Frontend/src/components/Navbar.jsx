@@ -81,7 +81,7 @@ export default function Navbar() {
             {!user && (
               <button
                 onClick={() => navigate("/login")}
-                className="text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-1.5 rounded-xl transition-all ml-1"
+                className="text-sm font-semibold bg-gradient-to-red from-cyan-500 to-blue-600 text-white px-4 py-1.5 rounded-xl transition-all ml-1"
               >
                 Sign In
               </button>
@@ -145,7 +145,7 @@ export default function Navbar() {
                 </button>
                 <button
                   onClick={() => navigate("/login")}
-                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-red from-cyan-500 to-blue-600 rounded-xl"
                 >
                   Get Started <ArrowRight className="w-4 h-4" />
                 </button>
