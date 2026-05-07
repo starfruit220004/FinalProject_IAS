@@ -27,6 +27,7 @@ const features = [
     desc: "Explore session flaws, credential stuffing, and how JWT tokens keep your users secure.",
     color: "from-teal-500 to-teal-700",
     badge: "OWASP",
+
   },
   {
     icon: Key,
@@ -248,7 +249,17 @@ export default function LandingPage() {
                   {f.badge}
                 </div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">{f.title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.desc}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{f.desc}</p>
+                {f.title === "Password Security" && (
+                  <a 
+                    href="/INSTALLATION OF JAVA AND WEBGOAT.docx" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline uppercase tracking-tighter mt-auto"
+                  >
+                    <BookOpen className="w-3 h-3" /> Integrated WebGoat Lab
+                  </a>
+                )}
               </div>
             ))}
           </div>

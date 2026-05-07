@@ -137,7 +137,18 @@ export default function QuizPage() {
 
                   {/* Explanation */}
                   {a.result.explanation && (
-                    <p className={`text-xs ${cardSubText} leading-relaxed`}>{a.result.explanation}</p>
+                    <p className={`text-xs ${cardSubText} leading-relaxed mb-4`}>{a.result.explanation}</p>
+                  )}
+
+                  {(a.question.question.toLowerCase().includes('hashing') || a.question.category === 'Password Security') && (
+                    <a 
+                      href="/INSTALLATION OF JAVA AND WEBGOAT.docx" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] font-bold text-orange-600 dark:text-orange-400 hover:underline uppercase tracking-tighter"
+                    >
+                      <BookOpen className="w-3 h-3" /> Study WebGoat Lesson for this topic
+                    </a>
                   )}
                 </div>
               ))}

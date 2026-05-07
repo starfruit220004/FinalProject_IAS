@@ -11,8 +11,9 @@ import ForgotPasswordPage from './authentication/ForgotPasswordPage';
 import ResetPasswordPage from './authentication/ResetPasswordPage';
 import DashboardPage from './pages/DashboardPage';
 import BlogPage from './pages/BlogPage';
-import FlashcardsPage from './pages/FlashcardTeam';
+import FlashcardsPage from './pages/FlashcardsPage';
 import QuizPage from './pages/QuizPage';
+import LessonsPage from './pages/LessonsPage';
 import './index.css';
 
 function Layout() {
@@ -41,6 +42,7 @@ export default function App() {
             <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/lessons" element={<LessonsPage />} />
               <Route path="/flashcards" element={<FlashcardsPage />} />
               <Route path="/quiz" element={<QuizPage />} />
             </Route>

@@ -82,6 +82,26 @@ export default function BlogPage() {
           <div className="text-slate-300 leading-relaxed whitespace-pre-line text-[15px] space-y-4">
             {selected.content}
           </div>
+
+          {(selected.title.toLowerCase().includes('hashing') || selected.content.toLowerCase().includes('hashing') || selected.category === 'Password Security') && (
+            <div className="mt-12 p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-white">
+              <div className="flex items-center gap-3 mb-3">
+                <ShieldCheck className="w-6 h-6 text-blue-400" />
+                <h3 className="font-bold">WebGoat Practice</h3>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                To further enhance your understanding of how password hashing is applied in a real security lab, you may explore our comprehensive laboratory documentation.
+              </p>
+              <a 
+                href="/INSTALLATION OF JAVA AND WEBGOAT.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-wider"
+              >
+                <BookOpen className="w-4 h-4" /> Explore Laboratory Guide
+              </a>
+            </div>
+          )}
         </div>
       </div>
     );

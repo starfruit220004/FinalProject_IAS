@@ -13,12 +13,14 @@ import {
   LogOut, 
   Menu, 
   X,
-  ArrowRight
+  ArrowRight,
+  FileText
 } from "lucide-react";
 
 const navLinks = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/blog",      label: "Blog",       icon: BookOpen },
+  { path: "/lessons",   label: "Lessons",   icon: BookOpen },
+  { path: "/blog",      label: "Articles",  icon: FileText },
   { path: "/flashcards",label: "Flashcards", icon: Layers },
   { path: "/quiz",      label: "Quiz",       icon: HelpCircle },
 ];

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { useTheme } from '../context/ThemeContext';
-import { Loader2, ArrowLeft, ArrowRight, RotateCw, PartyPopper, CheckCircle2 } from 'lucide-react';
+import { Loader2, ArrowLeft, ArrowRight, RotateCw, PartyPopper, CheckCircle2, BookOpen } from 'lucide-react';
 
 export default function FlashcardsPage() {
   const [cards, setCards] = useState([]);
@@ -125,7 +125,19 @@ export default function FlashcardsPage() {
               }}
             >
               <div className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase ${backLabel} mb-4`}>Answer</div>
-              <div className={`text-sm sm:text-base ${backText} leading-relaxed font-medium`}>{card.answer}</div>
+              <div className={`text-sm sm:text-base ${backText} leading-relaxed font-medium mb-6`}>{card.answer}</div>
+
+              {(card.question.toLowerCase().includes('hashing') || card.answer.toLowerCase().includes('hashing') || card.category === 'Password Security') && (
+                <a 
+                  href="/INSTALLATION OF JAVA AND WEBGOAT.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1.5 text-[10px] font-bold ${theme === 'dark' ? 'text-blue-600' : 'text-cyan-400'} hover:underline uppercase tracking-tighter`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <BookOpen className="w-3 h-3" /> Explore Laboratory Guide
+                </a>
+              )}
             </div>
           </div>
         </div>
